@@ -1,18 +1,13 @@
 import './index.css'
-import SingUp from './pages/auth/SingUp'
-import '@fontsource/inter'; 
-
-
-
+import Verification from './pages/auth/Verification'
+import '@fontsource/inter'
 
 function App() {
-
-  return (
-    <>
-      <SingUp />
-    </>
-
-  )
+    return (
+        <>
+            <Verification />
+        </>
+    )
 }
 
 export default App
