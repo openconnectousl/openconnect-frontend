@@ -1,14 +1,6 @@
-import { Button } from './components/ui/button'
 import './index.css'
-import Home from './pages/home'
-
-
-
-
-
-
-
-
+import SingUp from './pages/auth/SingUp'
+import '@fontsource/inter'; 
 
 
 
@@ -17,11 +9,9 @@ function App() {
 
   return (
     <>
-      <div>
-        <Button> Click me </Button>
-      </div>
-      <Home />
+      <SingUp />
     </>
+
   )
 }
 
