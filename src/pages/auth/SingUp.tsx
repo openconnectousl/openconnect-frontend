@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button"
 import { CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import SignUpImage from "@/assets/images/auth/Sign-up-image.svg"
-import GoogleIcon from "@/assets/images/auth/GoogleIcon.svg"
+import SignUpImage from "@/assets/images/auth/SignUp-UI-image.svg"
+import { FcGoogle } from "react-icons/fc";
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useForm } from "react-hook-form"
@@ -73,7 +73,7 @@ const SignUp: React.FC = () => {
                         <a href="#" className="text-blue-600 hover:underline ml-1">Sign In</a>
                         </p>
                         <Button type="button" variant="outline" className="w-full">
-                        <img src={GoogleIcon} alt="Google" className="mr-2" />
+                        <FcGoogle className="mr-2" />
                         Continue with Google
                         </Button>
                         <div className="flex items-center">
