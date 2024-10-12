@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button'
-import { CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import VerifyImage from '@/assets/images/auth/Verfiy-UI-image.svg'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -44,9 +43,9 @@ const Verification: React.FC = () => {
 
     return (
         <div className="h-screen grid grid-cols-1 md:grid-cols-2">
-            <div className="flex items-center justify-center p-10 font-inter">
-                <div className="w-full max-w-sm">
-                    <CardHeader>
+            <div className="flex items-center justify-center gap-10 font-inter">
+                <div className="w-full max-w-sm p-4">
+                    <div className="gap-1 pb-10">
                         <p className="text-blue-600 text-base font-bold leading-6 uppercase">
                             OPENCONNECT
                         </p>
@@ -56,11 +55,11 @@ const Verification: React.FC = () => {
                         <p className="text-zinc-400 text-lg font-semibold leading-7">
                             One time verification
                         </p>
-                    </CardHeader>
+                    </div>
 
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)}>
-                            <CardContent className="grid gap-4 py-10">
+                            <div className="grid gap-10 py-10">
                                 <div className="grid gap-2">
                                     <FormField
                                         control={form.control}
@@ -82,16 +81,16 @@ const Verification: React.FC = () => {
                                         )}
                                     />
                                 </div>
-                            </CardContent>
+                            </div>
 
-                            <CardFooter>
+                            <div>
                                 <Button
                                     type="submit"
                                     className="w-full rounded-md bg-blue-600 hover:bg-blue-700"
                                 >
                                     {loading ? <Spinner /> : 'Continue'}
                                 </Button>
-                            </CardFooter>
+                            </div>
                         </form>
                     </Form>
                 </div>
