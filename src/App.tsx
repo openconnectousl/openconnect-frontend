@@ -1,11 +1,12 @@
 import './index.css'
-import Verification from './pages/auth/Verification'
+import SignUp from './pages/auth/SignUp'
 import '@fontsource/inter'
 
 function App() {
     return (
         <>
-            <Verification />
+            {/* <Verification /> */}
+            <SignUp />
         </>
     )
 }
