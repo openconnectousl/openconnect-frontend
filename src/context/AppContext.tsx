@@ -51,6 +51,118 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       program: 'Business Management',
       image: 'https://github.com/shadcn.png',
     },
+    {
+      id: 3,
+      name: 'Mayura Andrew',
+      title: 'Software Engineer',
+      faculty: 'Faculty of Engineering Technology',
+      program: 'Bachelor of Software Engineering',
+      image: 'https://github.com/shadcn.png'
+    },
+    {
+      id: 4,
+      name: 'Mayura Andrew',
+      title: 'Software Engineer',
+      faculty: 'Faculty of Engineering Technology',
+      program: 'Bachelor of Software Engineering',
+      image: 'https://github.com/shadcn.png'
+    },
+    {
+      id: 5,
+      name: 'John Doe',
+      title: 'Software Engineer',
+      faculty: 'Faculty of Computer Engineering',
+      program: 'Computer Engineering',
+      image: 'https://github.com/shadcn.png',
+    },
+    {
+      id: 6,
+      name: 'Jane Smith',
+      title: 'Product Manager',
+      faculty: 'Faculty of Business',
+      program: 'Business Management',
+      image: 'https://github.com/shadcn.png',
+    },
+    {
+      id: 7,
+      name: 'Mayura Andrew',
+      title: 'Software Engineer',
+      faculty: 'Faculty of Engineering Technology',
+      program: 'Bachelor of Software Engineering',
+      image: 'https://github.com/shadcn.png'
+    },
+    {
+      id: 8,
+      name: 'Mayura Andrew',
+      title: 'Software Engineer',
+      faculty: 'Faculty of Engineering Technology',
+      program: 'Bachelor of Software Engineering',
+      image: 'https://github.com/shadcn.png'
+    },
+    {
+      id: 1,
+      name: 'John Doe',
+      title: 'Software Engineer',
+      faculty: 'Faculty of Computer Engineering',
+      program: 'Computer Engineering',
+      image: 'https://github.com/shadcn.png',
+    },
+    {
+      id: 2,
+      name: 'Jane Smith',
+      title: 'Product Manager',
+      faculty: 'Faculty of Business',
+      program: 'Business Management',
+      image: 'https://github.com/shadcn.png',
+    },
+    {
+      id: 3,
+      name: 'Mayura Andrew',
+      title: 'Software Engineer',
+      faculty: 'Faculty of Engineering Technology',
+      program: 'Bachelor of Software Engineering',
+      image: 'https://github.com/shadcn.png'
+    },
+    {
+      id: 4,
+      name: 'Mayura Andrew',
+      title: 'Software Engineer',
+      faculty: 'Faculty of Engineering Technology',
+      program: 'Bachelor of Software Engineering',
+      image: 'https://github.com/shadcn.png'
+    },
+    {
+      id: 5,
+      name: 'John Doe',
+      title: 'Software Engineer',
+      faculty: 'Faculty of Computer Engineering',
+      program: 'Computer Engineering',
+      image: 'https://github.com/shadcn.png',
+    },
+    {
+      id: 6,
+      name: 'Jane Smith',
+      title: 'Product Manager',
+      faculty: 'Faculty of Business',
+      program: 'Business Management',
+      image: 'https://github.com/shadcn.png',
+    },
+    {
+      id: 7,
+      name: 'Mayura Andrew',
+      title: 'Software Engineer',
+      faculty: 'Faculty of Engineering Technology',
+      program: 'Bachelor of Software Engineering',
+      image: 'https://github.com/shadcn.png'
+    },
+    {
+      id: 8,
+      name: 'Mayura Andrew',
+      title: 'Software Engineer',
+      faculty: 'Faculty of Engineering Technology',
+      program: 'Bachelor of Software Engineering',
+      image: 'https://github.com/shadcn.png'
+    }
   ]
 
   return (

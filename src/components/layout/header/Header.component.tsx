@@ -4,8 +4,6 @@ import { NavButtons } from './NavButtons.component'
 import { UserProfile } from './UserProfile.component'
 import { MobileMenu } from './Mobile/MobileMenu.component'
 import { MobileMenuButton } from './Mobile/MobileMenuButton.component'
-import { ConnectionRequestButton } from './NewConnectionRequestButton.component'
-import { NotificationButton } from './NotificationButton.component'
 
 interface HeaderProps {
   requests: Array<{
@@ -38,14 +36,7 @@ const Header: React.FC<HeaderProps> = ({ requests, setIsRequestPanelOpen }) => {
             requests={requests}
             setIsRequestPanelOpen={setIsRequestPanelOpen}
           />
-          <ConnectionRequestButton
-            count={requests.length}
-            onClick={() => setIsRequestPanelOpen(true)}
-          />
-          <NotificationButton
-            count={requests.length}
-            onClick={() => setIsRequestPanelOpen(true)}
-          />
+
           <UserProfile user={user} />
 
           <MobileMenuButton
