@@ -1,21 +1,19 @@
 import { GridLayout } from "./layout/GridLayout.component"
-import { ProfessionalNetworkGridProps } from "@/types"
+import { ProfessionalNetworkGridProps, UserProfile } from "@/types"
 import { cn } from "@/lib/utils"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { SearchBox } from "./common/SearchBox.component"
+
+
+
+
 
 interface ExtendedProfessionalNetworkGridProps extends ProfessionalNetworkGridProps {
   searchQuery: string
   onSearchChange: (value: string) => void
   isSidebarOpen: boolean
-  filteredUsers: Array<{
-    id: number
-    name: string
-    title: string
-    faculty: string
-    program: string
-    image: string
-  }>
+  onSidebarToggle?: () => void
+  filteredUsers: UserProfile[]
 }
 
 export const ProfessionalNetworkGrid: React.FC<ExtendedProfessionalNetworkGridProps> = ({ 
@@ -23,7 +21,7 @@ export const ProfessionalNetworkGrid: React.FC<ExtendedProfessionalNetworkGridPr
   searchQuery,
   onSearchChange,
   isSidebarOpen,
-  filteredUsers
+  filteredUsers,
 }) => {
   return (
     <div className="flex h-[calc(100vh-4rem)]">

@@ -8,16 +8,12 @@ export interface UserProfile {
 }
 
 export interface ProfessionalNetworkGridProps {
-    users: Array<{
-      id: number
-      name: string
-      title: string
-      faculty: string
-      program: string
-      image: string
-    }>
+  users: UserProfile[];
+  searchQuery: string;
+  onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isSidebarOpen: boolean;
+  filteredUsers: UserProfile[];
 }
-
 
 export interface RouterContext {
   requests: Array<{
