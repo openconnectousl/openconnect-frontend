@@ -10,8 +10,7 @@ export interface UserProfile {
 export interface ProfessionalNetworkGridProps {
   users: UserProfile[];
   searchQuery: string;
-  onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  isSidebarOpen: boolean;
+  onSearchChange: (value: string) => void;
   filteredUsers: UserProfile[];
 }
 

@@ -5,13 +5,14 @@ import { NetworkHeader } from "./NetworkHeader";
 
 interface ExtendedProfessionalNetworkGridProps extends ProfessionalNetworkGridProps {
   searchQuery: string;
-  onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSearchChange: (value: string) => void;
   facultyFilter: string;
   sortBy: string;
   onFacultyChange: (value: string) => void;
   onSortChange: (value: string) => void;
   filteredUsers: UserProfile[];
 }
+
 
 export const ProfessionalNetworkGrid: React.FC<ExtendedProfessionalNetworkGridProps> = ({ 
   users,
