@@ -14,6 +14,7 @@ interface HeaderProps {
   }>
   isRequestPanelOpen: boolean
   setIsRequestPanelOpen: (isOpen: boolean) => void
+  className?: string
 }
 
 const Header: React.FC<HeaderProps> = ({ requests, setIsRequestPanelOpen }) => {
@@ -26,9 +27,8 @@ const Header: React.FC<HeaderProps> = ({ requests, setIsRequestPanelOpen }) => {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 left-0 right-0 bg-white">
       <div className="container flex h-16 items-center">
-        {/* Logo */}
         <Logo />
 
         <div className="flex flex-1 items-center justify-end space-x-4">
@@ -46,7 +46,6 @@ const Header: React.FC<HeaderProps> = ({ requests, setIsRequestPanelOpen }) => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}

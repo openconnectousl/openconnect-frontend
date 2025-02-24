@@ -5,7 +5,7 @@ import { useState } from "react"
 
 interface SearchBoxProps {
   value: string
-  onChange: (value: string) => void
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string
 }
 

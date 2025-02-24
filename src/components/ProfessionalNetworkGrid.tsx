@@ -1,278 +1,52 @@
-import { GridLayout } from "./layout/GridLayout.component"
-import { ProfessionalNetworkGridProps, UserProfile } from "@/types"
-import { cn } from "@/lib/utils"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { SearchBox } from "./common/SearchBox.component"
-
-
-
-
+// src/components/ProfessionalNetworkGrid.tsx
+import { GridLayout } from "./layout/GridLayout.component";
+import { ProfessionalNetworkGridProps, UserProfile } from "@/types";
+import { NetworkHeader } from "./NetworkHeader";
 
 interface ExtendedProfessionalNetworkGridProps extends ProfessionalNetworkGridProps {
-  searchQuery: string
-  onSearchChange: (value: string) => void
-  isSidebarOpen: boolean
-  onSidebarToggle?: () => void
-  filteredUsers: UserProfile[]
+  searchQuery: string;
+  onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  facultyFilter: string;
+  sortBy: string;
+  onFacultyChange: (value: string) => void;
+  onSortChange: (value: string) => void;
+  filteredUsers: UserProfile[];
 }
 
 export const ProfessionalNetworkGrid: React.FC<ExtendedProfessionalNetworkGridProps> = ({ 
   users,
   searchQuery,
   onSearchChange,
-  isSidebarOpen,
+  facultyFilter,
+  sortBy,
+  onFacultyChange,
+  onSortChange,
   filteredUsers,
 }) => {
   return (
-    <div className="flex h-[calc(100vh-4rem)]">
-      <div className={cn(
-        "flex-1 flex flex-col transition-all duration-300 overflow-hidden",
-        isSidebarOpen ? "ml-80" : "ml-16"
-      )}>
-        {/* Sticky Header with Search */}
-        <div className="sticky top-0 bg-white/95 backdrop-blur z-10 p-6 border-b">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold tracking-tight">Your University Network</h1>
-              <p className="text-muted-foreground mt-2">
-                Showing {filteredUsers.length} of {users.length} members
-              </p>
-            </div>
-            <SearchBox 
-              value={searchQuery}
-              onChange={onSearchChange}
-            />
-          </div>
-        </div>
+    <div className="flex flex-col min-h-[calc(100vh-theme(spacing.16)-theme(spacing.16))]">
+      <NetworkHeader 
+        searchQuery={searchQuery}
+        onSearchChange={onSearchChange}
+        facultyFilter={facultyFilter}
+        sortBy={sortBy}
+        onFacultyChange={onFacultyChange}
+        onSortChange={onSortChange}
+        totalUsers={users.length}
+        filteredUsers={filteredUsers.length}
+      />
 
-        {/* Scrollable Content */}
-        <ScrollArea className="flex-1 p-6">
-          <div className="space-y-6">
-            <GridLayout users={filteredUsers} />
-            
-            {/* Empty State */}
-            {filteredUsers.length === 0 && (
-              <div className="text-center py-10">
-                <p className="text-muted-foreground">No results found</p>
-              </div>
-            )}
-          </div>
-        </ScrollArea>
+<div className="flex-1 overflow-auto py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <GridLayout users={filteredUsers} />
+          
+          {filteredUsers.length === 0 && (
+            <div className="text-center py-10">
+              <p className="text-gray-500">No results found</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
-  )
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  );
+};

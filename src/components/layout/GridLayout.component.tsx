@@ -6,7 +6,7 @@ interface GridLayoutProps {
 }
 
 export const GridLayout: React.FC<GridLayoutProps> = ({ users }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 auto-rows-max">
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
     {users.map((user) => (
       <ProfileCard key={user.id} user={user} />
     ))}

@@ -6,15 +6,12 @@ import { useApp } from '@/context/AppContext';
 const Home: React.FC = () => {
   const { users } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleSearchChange = (value: string) => {
     setSearchQuery(value);
   };
 
-  const handleSidebarToggle = () => {
-    setIsSidebarOpen(prev => !prev);
-  };
+
 
   const filteredUsers = users.filter((user: UserProfile) =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -26,8 +23,6 @@ const Home: React.FC = () => {
         users={users}
         searchQuery={searchQuery}
         onSearchChange={handleSearchChange}
-        isSidebarOpen={isSidebarOpen}
-        onSidebarToggle={handleSidebarToggle}
         filteredUsers={filteredUsers}
       />
     </div>
