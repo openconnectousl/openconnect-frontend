@@ -1,15 +1,13 @@
+// src/App.tsx
 import './index.css'
-import HomeProList from './pages/auth/HomeProList'
-import SignUp from './pages/auth/SignUp'
-import Verification from './pages/auth/Verification'
-import '@fontsource/inter'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './router'
+import { AppProvider } from './context/AppContext'
 
-function App() {
-    return (
-        <>
-            <HomeProList />
-        </>
-    )
+export function App() {
+  return (
+    <AppProvider>
+      <RouterProvider router={router} />
+    </AppProvider>
+  )
 }
-
-export default App
