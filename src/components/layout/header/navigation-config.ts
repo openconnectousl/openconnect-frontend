@@ -31,3 +31,4 @@ export const navigationItems: NavigationItem[] = [
     className: 'text-red-600'
   }
 ]
+
