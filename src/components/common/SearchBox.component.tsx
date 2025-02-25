@@ -16,7 +16,8 @@ export const SearchBox = ({ value, onChange, className }: SearchBoxProps) => {
     <div className={cn("relative group", className)}>
       <div className={cn(
         "relative flex items-center transition-all duration-300",
-        isFocused ? "w-[32rem]" : "w-96",
+        isFocused ? "sm:w-[32rem]" : "sm:w-96",
+        "w-full",
       )}>
         <Search className={cn(
           "absolute left-3 transition-colors duration-200",
@@ -27,7 +28,7 @@ export const SearchBox = ({ value, onChange, className }: SearchBoxProps) => {
           type="text"
           placeholder="Search profiles (Press ⌘ K)"
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={onChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           className={cn(

@@ -1,20 +1,12 @@
 // src/components/ProfessionalNetworkGrid.tsx
 import { GridLayout } from "./layout/GridLayout.component";
-import { ProfessionalNetworkGridProps, UserProfile } from "@/types";
+import { ProfessionalNetworkGridProps } from "@/types";
 import { NetworkHeader } from "./NetworkHeader";
 
-interface ExtendedProfessionalNetworkGridProps extends ProfessionalNetworkGridProps {
-  searchQuery: string;
-  onSearchChange: (value: string) => void;
-  facultyFilter: string;
-  sortBy: string;
-  onFacultyChange: (value: string) => void;
-  onSortChange: (value: string) => void;
-  filteredUsers: UserProfile[];
-}
 
 
-export const ProfessionalNetworkGrid: React.FC<ExtendedProfessionalNetworkGridProps> = ({ 
+
+export const ProfessionalNetworkGrid: React.FC<ProfessionalNetworkGridProps> = ({ 
   users,
   searchQuery,
   onSearchChange,
