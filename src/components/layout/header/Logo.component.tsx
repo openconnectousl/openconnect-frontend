@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 export const Logo = () => (
     <Link
         to="/"
-        className="flex flex-col space-y-0.5 px-4 transition-colors hover:opacity-90"
+        className="flex flex-col space-y-0.5 pl-0 pr-4 transition-colors hover:opacity-90"
     >
         <p className="text-blue-600 text-2xl font-semibold tracking-tight">
             OpenConnect

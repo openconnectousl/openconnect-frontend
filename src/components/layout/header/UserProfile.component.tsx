@@ -7,7 +7,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { CircleDashed, CircleUserRound, LogOut, Settings } from 'lucide-react'
+import { navigationItems } from './navigation-config'
 
 interface UserProfileProps {
     user: {
@@ -57,28 +57,20 @@ export const UserProfile = ({ user }: UserProfileProps) => (
                 </div>
                 <DropdownMenuSeparator className="bg-blue-100" />
             </DropdownMenuLabel>
-            <DropdownMenuItem
-                onClick={() => console.log('Check Status clicked')}
-            >
-                <CircleDashed />
-                Check Status
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => console.log('Profile clicked')}>
-                <CircleUserRound />
-                Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => console.log('Settings clicked')}>
-                <Settings />
-                Settings
-            </DropdownMenuItem>
-            <DropdownMenuSeparator className="bg-blue-100" />
-            <DropdownMenuItem
-                onClick={() => console.log('Logout clicked')}
-                className="text-red-600"
-            >
-                <LogOut />
-                Logout
-            </DropdownMenuItem>
+            <div className="flex flex-col gap-2">
+                {navigationItems.map((item) => (
+                    <DropdownMenuItem
+                        key={item.label}
+                        className={`w-full justify-start ${
+                            item.className || ''
+                        }`}
+                        onClick={item.onClick}
+                    >
+                        <item.icon className="mr-2 h-4 w-4" />
+                        {item.label}
+                    </DropdownMenuItem>
+                ))}
+            </div>
         </DropdownMenuContent>
     </DropdownMenu>
 )

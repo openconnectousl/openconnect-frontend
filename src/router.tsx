@@ -3,12 +3,12 @@ import { MainLayout } from '@/components/layout/MainLayout'
 import Home from '@/app/page'
 import SignIn from '@/pages/auth/SignIn'
 import SignUp from '@/pages/auth/SignUp'
-import MyProfile from './components/layout/MyProfileLayout'
+import { MyProfileLayout } from './components/layout/MyProfileLayout'
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <MainLayout />,
+        element: <MyProfileLayout />,
         children: [
             {
                 index: true,

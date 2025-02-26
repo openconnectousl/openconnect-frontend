@@ -14,7 +14,6 @@ interface HeaderProps {
     }>
     isRequestPanelOpen: boolean
     setIsRequestPanelOpen: (isOpen: boolean) => void
-    className?: string
 }
 
 const Header: React.FC<HeaderProps> = ({ requests, setIsRequestPanelOpen }) => {
