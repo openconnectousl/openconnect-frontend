@@ -5,9 +5,9 @@ import { router } from './router'
 import { AppProvider } from './context/AppContext'
 
 export function App() {
-  return (
-    <AppProvider>
-      <RouterProvider router={router} />
-    </AppProvider>
-  )
+    return (
+        <AppProvider>
+            <RouterProvider router={router} />
+        </AppProvider>
+    )
 }
