@@ -28,3 +28,17 @@ export const SignInFormSchema = z.object({
             .min(8, "Password reuirred at least 8 characters")
             .max(100, "Password must be less than 100 characters"),
 });
+
+export const ChangePasswordSchema = z.object({
+    newPassword: z
+        .string()
+        .min(8, "Minimum 8 characters")
+        .max(100, "Maximum 100 characters"),
+    confirmPassword: z
+        .string()
+        .min(8, "Minimum 8 characters")
+        .max(100, "Maximum 100 characters"),
+}).refine(data => data.newPassword === data.confirmPassword, {
+    message: "Passwords must match",
+    path: ["confirmPassword"], 
+});
