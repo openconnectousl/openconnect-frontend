@@ -18,6 +18,7 @@ import { SocialProfiles } from './SocialProfileInput'
 
 interface User {
     name: string
+    fullName: string
     title: string
     email: string
     degree: string
@@ -45,7 +46,12 @@ export const EditProfile: React.FC<EditProfileProps> = ({ user, setUser }) => {
     }
 
     const fields: { label: string; id: keyof User; placeholder: string }[] = [
-        { label: 'Name', id: 'name', placeholder: 'Enter Your Name' },
+        { label: 'User Name', id: 'name', placeholder: 'Enter Your User Name' },
+        {
+            label: 'Full Name',
+            id: 'fullName',
+            placeholder: 'Enter Your Full Name',
+        },
         { label: 'Title', id: 'title', placeholder: 'Enter Your Job Title' },
         {
             label: 'E-mail',

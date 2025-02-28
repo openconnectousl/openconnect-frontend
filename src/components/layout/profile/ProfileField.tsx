@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input'
 
 interface User {
     name: string
+    fullName: string
     title: string
     email: string
     mobile: string

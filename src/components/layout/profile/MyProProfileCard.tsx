@@ -10,11 +10,13 @@ import {
     Linkedin,
     Facebook,
     Github,
+    User,
 } from 'lucide-react'
 
 interface MyProProfileCardProps {
     user: {
         name: string
+        fullName: string
         title: string
         email: string
         mobile: string
@@ -51,6 +53,11 @@ export const MyProProfileCard: React.FC<MyProProfileCardProps> = ({ user }) => {
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-left">
                 {[
+                    {
+                        icon: User,
+                        label: 'Full Name:',
+                        value: user.fullName,
+                    },
                     { icon: Mail, label: 'E-mail:', value: user.email },
                     { icon: Phone, label: 'Mobile:', value: user.mobile },
                     {

@@ -151,23 +151,9 @@ export const NewIdea: React.FC<NewIdeaModalProps> = ({
         }
     }
 
-    const addPrerequisite = () => {
-        if (newPrerequisite && !prerequisites.includes(newPrerequisite)) {
-            setPrerequisites([...prerequisites, newPrerequisite])
-            setNewPrerequisite('')
-        }
-    }
-
     const removeTag = (tagToRemove: string) => {
         const updatedTags = tags.filter((tag) => tag !== tagToRemove)
         setTags(updatedTags)
-    }
-
-    const removePrerequisite = (prereqToRemove: string) => {
-        const updatedPrerequisites = prerequisites.filter(
-            (prereq) => prereq !== prereqToRemove
-        )
-        setPrerequisites(updatedPrerequisites)
     }
 
     return (
@@ -185,29 +171,29 @@ export const NewIdea: React.FC<NewIdeaModalProps> = ({
                         className="space-y-6"
                     >
                         {/* Resource Details Section */}
+                        <FormField
+                            control={form.control}
+                            name="title"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-gray-900 font-medium">
+                                        Title
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Enter Idea title"
+                                            className="border-gray-300 focus:border-blue-600 focus:ring-blue-600"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage className="text-red-600" />
+                                </FormItem>
+                            )}
+                        />
+
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             {/* Left Column */}
                             <div className="space-y-4">
-                                <FormField
-                                    control={form.control}
-                                    name="title"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel className="text-gray-900 font-medium">
-                                                Title
-                                            </FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    placeholder="Enter Idea title"
-                                                    className="border-gray-300 focus:border-blue-600 focus:ring-blue-600"
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage className="text-red-600" />
-                                        </FormItem>
-                                    )}
-                                />
-
                                 <FormField
                                     control={form.control}
                                     name="description"
@@ -227,7 +213,10 @@ export const NewIdea: React.FC<NewIdeaModalProps> = ({
                                         </FormItem>
                                     )}
                                 />
+                            </div>
 
+                            {/* Right Column */}
+                            <div className="space-y-4">
                                 <FormField
                                     control={form.control}
                                     name="category"
@@ -261,34 +250,6 @@ export const NewIdea: React.FC<NewIdeaModalProps> = ({
                                                 </SelectContent>
                                             </Select>
                                             <FormMessage className="text-red-600" />
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
-
-                            {/* Right Column */}
-                            <div className="space-y-4">
-                                <FormField
-                                    control={form.control}
-                                    name="imageUrl"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel className="text-gray-900 font-medium">
-                                                Preview Image
-                                            </FormLabel>
-                                            <div className="border rounded-lg overflow-hidden bg-gray-50 aspect-video flex items-center justify-center">
-                                                {field.value ? (
-                                                    <img
-                                                        src={field.value}
-                                                        alt="Idea preview"
-                                                        className="w-full h-full object-cover"
-                                                    />
-                                                ) : (
-                                                    <div className="text-gray-500 text-sm">
-                                                        No image available
-                                                    </div>
-                                                )}
-                                            </div>
                                         </FormItem>
                                     )}
                                 />
