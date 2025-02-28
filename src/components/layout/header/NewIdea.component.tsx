@@ -170,7 +170,6 @@ export const NewIdea: React.FC<NewIdeaModalProps> = ({
                         onSubmit={form.handleSubmit(onSubmit)}
                         className="space-y-6"
                     >
-                        {/* Resource Details Section */}
                         <FormField
                             control={form.control}
                             name="title"
