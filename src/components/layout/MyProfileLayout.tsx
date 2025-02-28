@@ -12,6 +12,7 @@ import { MyProProfileCard } from './profile/MyProProfileCard'
 export const MyProfileLayout = () => {
     const [user, setUser] = useState({
         name: 'Pasindu Bandara',
+        fullName: 'P G P M bandara',
         title: 'Intern Software Engineer',
         email: 's22010356@ousl.lk',
         degree: 'BSE',

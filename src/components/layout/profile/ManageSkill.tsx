@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { CircleX } from 'lucide-react'
+import { CircleX, Plus } from 'lucide-react'
 
 interface SkillManagerProps {
     skills: string[]
@@ -58,7 +58,7 @@ export const ManageSkill: React.FC<SkillManagerProps> = ({
                     onClick={addSkill}
                     className="text-sm px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
                 >
-                    Add
+                    <Plus />
                 </Button>
             </div>
         </div>
