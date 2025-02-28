@@ -20,6 +20,7 @@ interface ProfileFieldProps {
     label: string
     id: keyof User
     value: string
+    placeholder: string
     onChange: (id: keyof User, value: string) => void
 }
 
@@ -27,6 +28,7 @@ const ProfileField: React.FC<ProfileFieldProps> = ({
     label,
     id,
     value,
+    placeholder,
     onChange,
 }) => {
     return (
@@ -37,6 +39,7 @@ const ProfileField: React.FC<ProfileFieldProps> = ({
             <Input
                 id={id}
                 value={value}
+                placeholder={placeholder}
                 onChange={(e) => onChange(id, e.target.value)}
                 className="col-span-3"
             />

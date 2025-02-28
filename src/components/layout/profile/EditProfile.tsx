@@ -11,9 +11,10 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog'
-import { UploadIcon, Edit } from 'lucide-react'
+import { Edit, Plus } from 'lucide-react'
 import { ManageSkill } from './ManageSkill'
 import ProfileField from './ProfileField'
+import { SocialProfiles } from './SocialProfileInput'
 
 interface User {
     name: string
@@ -43,20 +44,30 @@ export const EditProfile: React.FC<EditProfileProps> = ({ user, setUser }) => {
         setUser(editUser)
     }
 
-    const handleUploadClick = () => {
-        if (avatarRef.current) {
-            avatarRef.current.click()
-        }
-    }
-
-    const fields: { label: string; id: keyof User }[] = [
-        { label: 'Name', id: 'name' },
-        { label: 'Title', id: 'title' },
-        { label: 'E-mail', id: 'email' },
-        { label: 'Mobile', id: 'mobile' },
-        { label: 'Degree', id: 'degree' },
-        { label: 'University', id: 'uni' },
-        { label: 'Faculty', id: 'faculty' },
+    const fields: { label: string; id: keyof User; placeholder: string }[] = [
+        { label: 'Name', id: 'name', placeholder: 'Enter Your Name' },
+        { label: 'Title', id: 'title', placeholder: 'Enter Your Job Title' },
+        {
+            label: 'E-mail',
+            id: 'email',
+            placeholder: 'Enter Your E-mail Address',
+        },
+        {
+            label: 'Mobile',
+            id: 'mobile',
+            placeholder: 'Enter Your Mobile Number',
+        },
+        { label: 'Degree', id: 'degree', placeholder: 'Enter Your Degree' },
+        {
+            label: 'University',
+            id: 'uni',
+            placeholder: 'Enter Your University Name',
+        },
+        {
+            label: 'Faculty',
+            id: 'faculty',
+            placeholder: 'Enter Your Faculty Name',
+        },
     ]
 
     return (
@@ -66,7 +77,7 @@ export const EditProfile: React.FC<EditProfileProps> = ({ user, setUser }) => {
                     <Edit /> Edit Profile
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] max-h-[80vh] overflow-y-auto">
+            <DialogContent className="max-w-2xl p-6 max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>Edit profile</DialogTitle>
                     <DialogDescription>
@@ -76,43 +87,42 @@ export const EditProfile: React.FC<EditProfileProps> = ({ user, setUser }) => {
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                     <div className="flex flex-col items-center gap-4 mb-4">
-                        <Avatar className="h-32 w-32">
-                            <AvatarImage
-                                src={editUser.avatar}
-                                alt={editUser.name}
-                            />
-                            <AvatarFallback className="text-5xl">
-                                {editUser.name
-                                    .split(' ')
-                                    .slice(0, 2)
-                                    .map((n) => n[0])
-                                    .join('')
-                                    .toUpperCase()}
-                            </AvatarFallback>
-                        </Avatar>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={handleUploadClick}
-                        >
-                            <UploadIcon className="mr-2 h-4 w-4" />
-                            Upload Photo
-                        </Button>
-                        <Input
-                            type="file"
-                            accept="image/*"
-                            ref={avatarRef}
-                            className="hidden"
-                            onChange={(e) => {
-                                if (e.target.files) {
-                                    const file = e.target.files[0]
-                                    setEditUser({
-                                        ...editUser,
-                                        avatar: URL.createObjectURL(file),
-                                    })
-                                }
-                            }}
-                        />
+                        <div className="relative w-20 flex-shrink-0">
+                            <Avatar className="h-32 w-32">
+                                <AvatarImage
+                                    src={editUser.avatar}
+                                    alt={editUser.name}
+                                />
+                                <AvatarFallback className="text-5xl">
+                                    {editUser.name
+                                        .split(' ')
+                                        .slice(0, 2)
+                                        .map((n) => n[0])
+                                        .join('')
+                                        .toUpperCase()}
+                                </AvatarFallback>
+                            </Avatar>
+                            <label className="absolute -bottom-1 -right-12 w-9 h-9 border-4 border-white bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center cursor-pointer transition-colors">
+                                <Plus className="w-5 h-5 text-white" />
+                                <Input
+                                    type="file"
+                                    accept="image/*"
+                                    ref={avatarRef}
+                                    className="hidden"
+                                    onChange={(e) => {
+                                        if (e.target.files) {
+                                            const file = e.target.files[0]
+                                            setEditUser({
+                                                ...editUser,
+                                                avatar: URL.createObjectURL(
+                                                    file
+                                                ),
+                                            })
+                                        }
+                                    }}
+                                />
+                            </label>
+                        </div>
                     </div>
                     <div className="grid gap-4 py-4">
                         {fields.map((field) => (
@@ -121,6 +131,7 @@ export const EditProfile: React.FC<EditProfileProps> = ({ user, setUser }) => {
                                 label={field.label}
                                 id={field.id}
                                 value={editUser[field.id] as string}
+                                placeholder={field.placeholder}
                                 onChange={(id, value) =>
                                     setEditUser((prev) => ({
                                         ...prev,
@@ -130,6 +141,8 @@ export const EditProfile: React.FC<EditProfileProps> = ({ user, setUser }) => {
                             />
                         ))}
                     </div>
+
+                    <SocialProfiles user={editUser} setUser={setEditUser} />
 
                     {/* Skills Management */}
                     <ManageSkill
