@@ -8,6 +8,7 @@ import { AboutMe } from './profile/AboutMe'
 import { EditProfile } from './profile/EditProfile'
 import { SkillsSection } from './profile/SkillsSection'
 import { MyProProfileCard } from './profile/MyProProfileCard'
+import { ViewIdea } from '../ViewIdea'
 
 export const MyProfileLayout = () => {
     const [user, setUser] = useState({
@@ -44,6 +45,8 @@ export const MyProfileLayout = () => {
     const [newAboutMe, setNewAboutMe] = useState(aboutMe)
 
     const { requests, isRequestPanelOpen, setIsRequestPanelOpen } = useApp()
+    const [viewIdeaModalOpen, setViewIdeaModalOpen] = useState(false)
+
     return (
         <div className="bg-gray-50">
             <Header
@@ -55,6 +58,19 @@ export const MyProfileLayout = () => {
                 requests={requests}
                 isOpen={isRequestPanelOpen}
                 onClose={() => setIsRequestPanelOpen(false)}
+            />
+            <ViewIdea
+                open={viewIdeaModalOpen}
+                onOpenChange={() => setViewIdeaModalOpen(false)}
+                idea={{
+                    title: 'Title Here',
+                    description: '',
+                    category: '',
+                    tags: [],
+                    learningOutcome: '',
+                    recommendedLevel: '',
+                    generalThoughts: undefined,
+                }}
             />
             <div className="p-6 min-h-screen">
                 <div className="flex justify-between items-center mb-6">
@@ -70,7 +86,7 @@ export const MyProfileLayout = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Left Panel */}
-                    <div className="lg:col-span-1">
+                    <div className="flex flex-col lg:col-span-1 gap-6">
                         <MyProProfileCard user={user} />
 
                         {/* Skills Section */}
