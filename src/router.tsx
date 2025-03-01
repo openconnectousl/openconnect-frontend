@@ -11,7 +11,7 @@ import MySubmissions from './components/layout/MySubmissions'
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <MyProfileLayout />,
+        element: <MySubmissions />,
         children: [
             {
                 index: true,
