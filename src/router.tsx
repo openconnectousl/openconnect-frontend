@@ -6,11 +6,12 @@ import SignUp from '@/pages/auth/SignUp'
 import { MyProfileLayout } from './components/layout/MyProfileLayout'
 import { ForgotPw } from './pages/auth/ForgotPw'
 import { ChangePw } from './pages/auth/ChangePw'
+import MySubmissions from './components/layout/MySubmissions'
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <ChangePw />,
+        element: <MySubmissions />,
         children: [
             {
                 index: true,

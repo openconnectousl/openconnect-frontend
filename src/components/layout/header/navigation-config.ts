@@ -1,4 +1,4 @@
-import { CircleDashed, CircleUserRound, Settings, LogOut } from 'lucide-react';
+import { CircleUserRound, Settings, LogOut, LibraryBig } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
 
 interface NavigationItem {
@@ -10,8 +10,8 @@ interface NavigationItem {
 
 export const navigationItems: NavigationItem[] = [
   {
-    label: 'Check Status',
-    icon: CircleDashed,
+    label: 'My Submissions',
+    icon: LibraryBig,
     onClick: () => console.log('Check Status clicked')
   },
   {
