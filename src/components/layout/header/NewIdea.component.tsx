@@ -1,5 +1,5 @@
 import React from 'react'
-import { Plus, Link as LinkIcon, X, Loader2 } from 'lucide-react'
+import { Plus, X } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -29,7 +29,6 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Alert, AlertDescription } from '@/components/ui/alert'
 
 const formSchema = z.object({
     title: z.string().min(1, 'Title is required'),
@@ -58,12 +57,9 @@ export const NewIdea: React.FC<NewIdeaModalProps> = ({
     onOpenChange,
 }) => {
     const [tags, setTags] = React.useState<string[]>([])
-    const [prerequisites, setPrerequisites] = React.useState<string[]>([])
     const [newTag, setNewTag] = React.useState<string>('')
-    const [newPrerequisite, setNewPrerequisite] = React.useState<string>('')
-    const [rating, setRating] = React.useState(0)
-    const [isFetching, setIsFetching] = React.useState(false)
-    const [fetchError, setFetchError] = React.useState<string>('')
+    const [, setIsFetching] = React.useState(false)
+    const [, setFetchError] = React.useState<string>('')
 
     const form = useForm({
         resolver: zodResolver(formSchema),

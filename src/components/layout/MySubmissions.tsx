@@ -43,6 +43,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { ViewIdea } from '../ViewIdea'
 
 interface Idea {
     id: number
@@ -50,6 +51,11 @@ interface Idea {
     description: string
     status: 'Pending' | 'Approved' | 'Rejected'
     feedback?: string
+    category: string
+    tags: string[]
+    learningOutcome: string
+    recommendedLevel: string
+    generalThoughts?: string
 }
 
 const ideasData: Idea[] = [
@@ -59,6 +65,10 @@ const ideasData: Idea[] = [
         description: 'An AI chatbot for customer support.',
         status: 'Pending',
         feedback: 'Needs more details.',
+        category: 'Technology',
+        tags: ['AI', 'Chatbot'],
+        learningOutcome: 'Improved automation',
+        recommendedLevel: 'Intermediate',
     },
     {
         id: 2,
@@ -66,6 +76,10 @@ const ideasData: Idea[] = [
         description: 'Adding dark mode to the platform.',
         status: 'Approved',
         feedback: 'Great idea! Implementing soon.',
+        category: 'UI/UX',
+        tags: ['Dark Mode', 'User Experience'],
+        learningOutcome: 'Enhancing UI',
+        recommendedLevel: 'Beginner',
     },
     {
         id: 3,
@@ -73,6 +87,10 @@ const ideasData: Idea[] = [
         description: 'Introduce user achievement badges.',
         status: 'Rejected',
         feedback: 'Not a priority at the moment.',
+        category: 'User Engagement',
+        tags: ['Badges', 'Profile'],
+        learningOutcome: 'Increased user interaction',
+        recommendedLevel: 'Beginner',
     },
     {
         id: 4,
@@ -80,6 +98,10 @@ const ideasData: Idea[] = [
         description: 'Revamping the homepage UI.',
         status: 'Pending',
         feedback: '',
+        category: 'Design',
+        tags: ['UI', 'Homepage', 'Design'],
+        learningOutcome: 'Improved user interface',
+        recommendedLevel: 'Intermediate',
     },
     {
         id: 5,
@@ -87,6 +109,10 @@ const ideasData: Idea[] = [
         description: 'Improve system speed and caching.',
         status: 'Approved',
         feedback: 'Planned for next update.',
+        category: 'Performance',
+        tags: ['Speed', 'Caching', 'Performance'],
+        learningOutcome: 'Enhanced system performance',
+        recommendedLevel: 'Advanced',
     },
     {
         id: 6,
@@ -94,6 +120,10 @@ const ideasData: Idea[] = [
         description: 'An AI chatbot for customer support.',
         status: 'Rejected',
         feedback: 'Needs more details.',
+        category: 'Technology',
+        tags: ['AI', 'Chatbot'],
+        learningOutcome: 'Improved automation',
+        recommendedLevel: 'Intermediate',
     },
     {
         id: 7,
@@ -101,6 +131,10 @@ const ideasData: Idea[] = [
         description: 'Adding dark mode to the platform.',
         status: 'Approved',
         feedback: 'Great idea! Implementing soon.',
+        category: 'Design',
+        tags: ['Dark Mode', 'UI'],
+        learningOutcome: 'Improved user customization',
+        recommendedLevel: 'Intermediate',
     },
 ]
 
@@ -156,6 +190,20 @@ export default function MySubmissions() {
         setFilteredIdeas(ideasData)
     }
 
+    const [viewIdeaModalOpen, setViewIdeaModalOpen] = useState(false)
+    const [selectedIdea, setSelectedIdea] = useState<Idea | null>(null)
+
+    const openModal = (idea: Idea) => {
+        setSelectedIdea(idea)
+        setViewIdeaModalOpen(true)
+        console.log('Modal opened', idea)
+    }
+
+    const closeModal = () => {
+        setViewIdeaModalOpen(false)
+        console.log('Modal closed')
+    }
+
     return (
         <div className="bg-gray-50">
             <Header
@@ -167,6 +215,22 @@ export default function MySubmissions() {
                 requests={requests}
                 isOpen={isRequestPanelOpen}
                 onClose={() => setIsRequestPanelOpen(false)}
+            />
+            <ViewIdea
+                open={viewIdeaModalOpen}
+                onOpenChange={closeModal}
+                idea={
+                    selectedIdea
+                        ? selectedIdea
+                        : {
+                              title: '',
+                              description: '',
+                              category: 'General',
+                              tags: [],
+                              learningOutcome: 'Not specified',
+                              recommendedLevel: 'Beginner',
+                          }
+                }
             />
             <div className="p-8 mx-auto min-h-[680px]">
                 <h2 className="text-xl font-bold mb-4">My Submissions</h2>
@@ -281,7 +345,11 @@ export default function MySubmissions() {
                                                         <Edit className="mr-2 h-4 w-4" />
                                                         Edit
                                                     </DropdownMenuItem>
-                                                    <DropdownMenuItem>
+                                                    <DropdownMenuItem
+                                                        onClick={() =>
+                                                            openModal(idea)
+                                                        }
+                                                    >
                                                         <View className="mr-2 h-4 w-4" />
                                                         View
                                                     </DropdownMenuItem>
