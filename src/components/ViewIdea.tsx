@@ -9,6 +9,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
+import { Download, Link } from 'lucide-react'
 
 interface ViewIdeaProps {
     open: boolean
@@ -21,6 +22,8 @@ interface ViewIdeaProps {
         learningOutcome: string
         recommendedLevel: string
         generalThoughts?: string
+        pdfUrl?: string
+        url?: string
     }
 }
 
@@ -42,14 +45,53 @@ export const ViewIdea: React.FC<ViewIdeaProps> = ({
                 <p className="text-gray-700 mb-2">
                     <strong>Category:</strong> {idea.category}
                 </p>
-                <p className="text-gray-700 mb-2">
-                    <strong>Recommended Level:</strong> {idea.recommendedLevel}
-                </p>
-
                 <Separator />
 
                 <p className="text-gray-800 mt-4 mb-2 font-bold">Description</p>
                 <p className="text-gray-600">{idea.description}</p>
+
+                <Separator />
+
+                <>
+                    <p className="flex items-center gap-4 text-gray-800 mt-4 font-bold">
+                        Uploaded PDF
+                    </p>
+                    {idea.pdfUrl ? (
+                        <Button
+                            size="sm"
+                            onClick={() => window.open(idea.pdfUrl, '_blank')}
+                            className="flex items-center gap-2 w-full sm:w-36"
+                        >
+                            <Download size={16} /> Download PDF
+                        </Button>
+                    ) : (
+                        <p className="text-gray-600 text-xs italic">
+                            No PDF available
+                        </p>
+                    )}
+                </>
+                <Separator />
+
+                <>
+                    <p className="text-gray-800 mt-4 font-bold">
+                        Resource URL(Github)
+                    </p>
+                    {idea.url ? (
+                        <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => window.open(idea.url, '_blank')}
+                            className="flex items-center gap-2 w-full sm:w-36 font-semibold"
+                        >
+                            <Link />
+                            Open URL
+                        </Button>
+                    ) : (
+                        <p className="text-gray-600 text-xs italic">
+                            No Resource URL available
+                        </p>
+                    )}
+                </>
 
                 <Separator />
 
@@ -83,7 +125,9 @@ export const ViewIdea: React.FC<ViewIdeaProps> = ({
                                 </Badge>
                             ))
                         ) : (
-                            <p className="text-gray-600">No tags available</p>
+                            <p className="text-gray-600 text-xs italic">
+                                No tags available
+                            </p>
                         )}
                     </div>
                 </div>
@@ -92,9 +136,10 @@ export const ViewIdea: React.FC<ViewIdeaProps> = ({
 
                 <DialogFooter className="flex justify-end mt-4">
                     <Button
+                        size="sm"
                         variant="outline"
                         onClick={() => onOpenChange(false)}
-                        className="border-gray-300 rounded-lg text-gray-500 hover:bg-gray-100"
+                        className="border-gray-400 text-gray-500 px-8"
                     >
                         Close
                     </Button>

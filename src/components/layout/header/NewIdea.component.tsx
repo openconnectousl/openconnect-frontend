@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Github, Loader2, Plus, X } from 'lucide-react'
+import { Github, Loader2, Plus, Send, X } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -67,7 +67,6 @@ export const NewIdea: React.FC<NewIdeaModalProps> = ({
             category: '',
             tags: [],
             learningOutcome: '',
-            recommendedLevel: 'beginner',
             generalThoughts: '',
             pdfFile: null,
         },
@@ -342,9 +341,8 @@ export const NewIdea: React.FC<NewIdeaModalProps> = ({
                                     type="button"
                                     onClick={addTag}
                                     variant="outline"
-                                    className="border-gray-300 hover:bg-gray-100 text-blue-600"
                                 >
-                                    <Plus size={16} />
+                                    <Plus strokeWidth={3} />
                                 </Button>
                             </div>
                         </div>
@@ -392,15 +390,15 @@ export const NewIdea: React.FC<NewIdeaModalProps> = ({
                             />
                         </div>
 
-                        <DialogFooter className="flex justify-self-center items-center space-x-2">
-                            <Button type="submit" className="rounded-lg ">
-                                Share Idea
+                        <DialogFooter className="flex flex-col justify-between sm:justify-self-end items-center gap-2">
+                            <Button type="submit" className="w-full sm:w-32">
+                                <Send /> Share Idea
                             </Button>
                             <Button
                                 type="button"
                                 variant="outline"
                                 onClick={() => onOpenChange(false)}
-                                className="border-gray-300 rounded-lg text-gray-500 hover:bg-gray-100"
+                                className="border-gray-400 text-gray-500 w-full sm:w-28"
                             >
                                 Cancel
                             </Button>
