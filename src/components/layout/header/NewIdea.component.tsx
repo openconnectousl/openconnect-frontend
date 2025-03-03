@@ -1,5 +1,5 @@
-import React from 'react'
-import { Plus, X } from 'lucide-react'
+import React, { useRef, useState } from 'react'
+import { Github, Loader2, Plus, X } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -32,19 +32,16 @@ import { Badge } from '@/components/ui/badge'
 
 const formSchema = z.object({
     title: z.string().min(1, 'Title is required'),
-    url: z.string().url('Please enter a valid URL'),
+    url: z.string().optional(),
     description: z
         .string()
         .min(10, 'Description should be at least 10 characters'),
     category: z.string().min(1, 'Please select a category'),
     tags: z.array(z.string()),
-    prerequisites: z.array(z.string()),
-    rating: z.number().min(1).max(5),
     learningOutcome: z.string().min(10, 'Please share what you learned'),
     recommendedLevel: z.enum(['beginner', 'intermediate', 'advanced']),
     generalThoughts: z.string().optional(),
-    imageUrl: z.string().optional(),
-    platform: z.string().optional(),
+    pdfFile: z.union([z.instanceof(File), z.null()]).optional(),
 })
 
 interface NewIdeaModalProps {
@@ -58,7 +55,7 @@ export const NewIdea: React.FC<NewIdeaModalProps> = ({
 }) => {
     const [tags, setTags] = React.useState<string[]>([])
     const [newTag, setNewTag] = React.useState<string>('')
-    const [, setIsFetching] = React.useState(false)
+    const [isFetching, setIsFetching] = React.useState(false)
     const [, setFetchError] = React.useState<string>('')
 
     const form = useForm({
@@ -69,13 +66,10 @@ export const NewIdea: React.FC<NewIdeaModalProps> = ({
             description: '',
             category: '',
             tags: [],
-            prerequisites: [],
-            rating: 0,
             learningOutcome: '',
             recommendedLevel: 'beginner',
             generalThoughts: '',
-            imageUrl: '',
-            platform: '',
+            pdfFile: null,
         },
     })
 
@@ -106,18 +100,8 @@ export const NewIdea: React.FC<NewIdeaModalProps> = ({
 
             form.setValue('title', metadata.title)
             form.setValue('description', metadata.description)
-            form.setValue('imageUrl', metadata.image)
 
             console.log(metadata)
-
-            let platform = 'Website'
-
-            if (url.includes('youtube.com') || url.includes('youtu.be')) {
-                platform = 'YouTube'
-            } else if (url.includes('github.com')) {
-                platform = 'GitHub'
-            }
-            form.setValue('platform', platform)
         } catch (error) {
             setFetchError(
                 'Failed to fetch resource details. You can enter them manually.'
@@ -150,6 +134,21 @@ export const NewIdea: React.FC<NewIdeaModalProps> = ({
     const removeTag = (tagToRemove: string) => {
         const updatedTags = tags.filter((tag) => tag !== tagToRemove)
         setTags(updatedTags)
+    }
+
+    const fileInputRef = useRef<HTMLInputElement>(null)
+    const [selectedFile, setSelectedFile] = useState<File | null>(null)
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0] || null
+        setSelectedFile(file)
+    }
+
+    const removeFile = () => {
+        setSelectedFile(null)
+        if (fileInputRef.current) {
+            fileInputRef.current.value = ''
+        }
     }
 
     return (
@@ -249,41 +248,61 @@ export const NewIdea: React.FC<NewIdeaModalProps> = ({
                                     )}
                                 />
 
-                                <FormField
-                                    control={form.control}
-                                    name="recommendedLevel"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel className="text-gray-900 font-medium">
-                                                Recommended for
-                                            </FormLabel>
-                                            <Select
-                                                onValueChange={field.onChange}
-                                                defaultValue={field.value}
+                                {/* PDF Upload */}
+                                <div className="space-y-4">
+                                    <FormLabel className="text-gray-900 font-medium">
+                                        Upload PDF (Optional)
+                                    </FormLabel>
+                                    <div className="relative w-full">
+                                        <Input
+                                            ref={fileInputRef}
+                                            type="file"
+                                            accept=".pdf"
+                                            onChange={handleFileChange}
+                                            className="border-gray-300 text-gray-500 focus:border-blue-600 focus:ring-blue-600 pr-10 pl-1 h-8"
+                                        />
+
+                                        {selectedFile && (
+                                            <button
+                                                type="button"
+                                                onClick={removeFile}
+                                                className="absolute right-2 top-1/2 transform -translate-y-1/2 mx-1 text-gray-600 hover:text-red-600"
                                             >
-                                                <FormControl>
-                                                    <SelectTrigger className="border-gray-300 focus:ring-blue-600">
-                                                        <SelectValue placeholder="Select level" />
-                                                    </SelectTrigger>
-                                                </FormControl>
-                                                <SelectContent>
-                                                    <SelectItem value="beginner">
-                                                        Beginner
-                                                    </SelectItem>
-                                                    <SelectItem value="intermediate">
-                                                        Intermediate
-                                                    </SelectItem>
-                                                    <SelectItem value="advanced">
-                                                        Advanced
-                                                    </SelectItem>
-                                                </SelectContent>
-                                            </Select>
-                                            <FormMessage className="text-red-600" />
-                                        </FormItem>
-                                    )}
-                                />
+                                                <X size={14} />
+                                            </button>
+                                        )}
+                                    </div>
+                                    <FormMessage className="text-red-600" />
+                                </div>
                             </div>
                         </div>
+                        <FormField
+                            control={form.control}
+                            name="url"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-gray-900 font-medium">
+                                        Resource URL(Github)
+                                    </FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <Github className="absolute left-3 top-3 h-4 w-4 text-gray-600" />
+                                            <Input
+                                                placeholder="https://"
+                                                className="pl-10 border-gray-300 focus:border-blue-600 focus:ring-blue-600"
+                                                {...field}
+                                            />
+                                            {isFetching && (
+                                                <div className="absolute right-3 top-3">
+                                                    <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
+                                                </div>
+                                            )}
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage className="text-red-600" />
+                                </FormItem>
+                            )}
+                        />
 
                         {/* Tags Section */}
                         <div className="space-y-2">
@@ -303,7 +322,7 @@ export const NewIdea: React.FC<NewIdeaModalProps> = ({
                                             onClick={() => removeTag(tag)}
                                             className="ml-1 hover:text-red-600"
                                         >
-                                            <X size={14} />
+                                            <X size={12} />
                                         </button>
                                     </Badge>
                                 ))}
