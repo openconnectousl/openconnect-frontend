@@ -1,45 +1,40 @@
-
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-
-import { Form, 
-    FormControl, 
-    FormField, 
-    FormItem, 
-    FormLabel, 
-    FormMessage } from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SignInFormSchema } from "@/schemas";
-import { Button } from "@/components/ui/button";
-import { FcGoogle } from "react-icons/fc";
-import { Input } from "@/components/ui/input";
-import Spinner from "@/components/Spinner/Spinner.component";
-import SignInImage from "@/assets/images/auth/SignIn-UI-image.svg";
-
-
-
+import { useForm } from 'react-hook-form'
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '@/components/ui/form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { SignInFormSchema } from '@/schemas'
+import { Button } from '@/components/ui/button'
+import { FcGoogle } from 'react-icons/fc'
+import { Input } from '@/components/ui/input'
+import Spinner from '@/components/Spinner/Spinner.component'
+import SignInImage from '@/assets/images/auth/SignInImage.svg'
+import { useSignIn } from '@/hooks/useSignIn.ts'
+import { SignInCredentials } from '@/types'
+import { useGoogleAuth } from '@/hooks/useGoogleOAuth.ts'
 
 const SignIn: React.FC = () => {
+    const { signIn, isLoading } = useSignIn()
+    const { googleSignIn, isLoading: isGoogleLoading } = useGoogleAuth()
 
-    const [loading, setLoading] = useState(false);
-
-    //validations
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+    }
     const form = useForm({
         resolver: zodResolver(SignInFormSchema),
         defaultValues: {
             email: '',
             password: '',
         },
-    });
+    })
 
-    //handle login
-    const onLogin = async (values: { email: string; password: string }) => {
-        try{
-            // Todo: fetch api
-
-        }catch (error){
-            console.error(error)
-        }
+    const onLogin = async (credentials: SignInCredentials) => {
+        signIn(credentials)
     }
 
     return (
@@ -50,29 +45,52 @@ const SignIn: React.FC = () => {
                     <div className="w-full max-w-sm p-4">
                         {/* header title */}
                         <div className="gap-1 pb-10">
-                            <p className="text-blue-600 text-base font-bold leading-6 uppercase">OPENCONNECT</p>
+                            <p className="text-blue-600 text-base font-bold leading-6 uppercase">
+                                OPENCONNECT
+                            </p>
                             <h2 className="text-black text-3xl font-semibold leading-10 tracking-tight">
                                 Idea Sharing & Collaboration Platform
                             </h2>
-                            <p className="text-zinc-400 text-lg font-semibold leading-7">Sing in</p>
+                            <p className="text-zinc-400 text-lg font-semibold leading-7">
+                                Sing in
+                            </p>
                         </div>
-                        
+
                         {/* form area*/}
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onLogin)}>
                                 {/* form header */}
-                                <div className="grid gap-6">
+                                <div className="grid git gap-6">
                                     <p className="text-left text-zinc-500">
                                         Dont have an account?
-                                        <a href="#" className="text-blue-600 hover:underline ml-1">Sign Up</a>
+                                        <a
+                                            href="/auth/signup"
+                                            className="text-blue-600 hover:underline ml-1"
+                                        >
+                                            Sign Up
+                                        </a>
                                     </p>
-                                    <Button type="button" variant="outline" className="w-full">
-                                        <FcGoogle className="mr-2" />
-                                        Sign in with Google
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        className="w-full"
+                                        onClick={handleGoogleSignIn}
+                                        disabled={isGoogleLoading}
+                                    >
+                                        {isGoogleLoading ? (
+                                            <Spinner />
+                                        ) : (
+                                            <>
+                                                <FcGoogle className="mr-2" />
+                                                Continue with Google
+                                            </>
+                                        )}
                                     </Button>
                                     <div className="flex items-center">
                                         <div className="flex-grow border-t border-gray-300"></div>
-                                        <span className="flex-shrink mx-4 text-gray-400">or</span>
+                                        <span className="flex-shrink mx-4 text-gray-400">
+                                            or
+                                        </span>
                                         <div className="flex-grow border-t border-gray-300"></div>
                                     </div>
 
@@ -101,7 +119,9 @@ const SignIn: React.FC = () => {
                                             name="password"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel>Password</FormLabel>
+                                                    <FormLabel>
+                                                        Password
+                                                    </FormLabel>
                                                     <FormControl>
                                                         <Input
                                                             type="password"
@@ -114,24 +134,32 @@ const SignIn: React.FC = () => {
                                             )}
                                         />
                                     </div>
-                                    
-                                    {/* terms */}
+
                                     <div className="text-sm">
-                                        <a href="#" className="font-medium text-blue-600 hover:underline ml-1 ">Forgot Password</a>
+                                        <a
+                                            href="/auth/forgot-password"
+                                            className="font-medium text-blue-600 hover:underline ml-1 "
+                                        >
+                                            Forgot Password
+                                        </a>
                                     </div>
 
-                                    {/* btn sign in */}
                                     <div className="mt-2.5">
                                         <Button
                                             type="submit"
                                             className="w-full rounded-md bg-blue-600 hover:bg-blue-700"
+                                            disabled={isLoading}
                                         >
-                                            {loading ? <Spinner /> : 'Sign in'}
+                                            {isLoading ? (
+                                                <Spinner />
+                                            ) : (
+                                                'Sign in'
+                                            )}
                                         </Button>
                                     </div>
                                 </div>
                             </form>
-                        </Form>                    
+                        </Form>
                     </div>
                 </div>
 
@@ -146,4 +174,4 @@ const SignIn: React.FC = () => {
     )
 }
 
-export default SignIn;
+export default SignIn

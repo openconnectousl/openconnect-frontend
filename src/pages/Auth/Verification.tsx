@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import VerifyImage from '@/assets/images/auth/Verfiy-UI-image.svg'
+import VerifyImage from '@/assets/images/auth/VerfiyImage.svg'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import {

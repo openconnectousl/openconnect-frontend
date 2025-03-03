@@ -2,12 +2,12 @@ import { useState } from 'react'
 import Header from './header/Header.component'
 import { useApp } from '@/context/AppContext'
 import { RequestPanel } from '@/components/RequestPanel'
-import { ProjectsIdeas } from './profile/ProjectsIdeas'
-import { MyProConnections } from './profile/MyProConnections'
-import { AboutMe } from './profile/AboutMe'
-import { EditProfile } from './profile/EditProfile'
-import { SkillsSection } from './profile/SkillsSection'
-import { MyProProfileCard } from './profile/MyProProfileCard'
+import { ProjectsIdeas } from '../profile/ProjectsIdeas'
+import { MyProConnections } from '../profile/MyProConnections'
+import { AboutMe } from '../profile/AboutMe'
+import { EditProfile } from '../profile/EditProfile'
+import { SkillsSection } from '../profile/SkillsSection'
+import { MyProProfileCard } from '../profile/MyProProfileCard'
 
 export const MyProfileLayout = () => {
     const [user, setUser] = useState({
