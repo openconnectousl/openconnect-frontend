@@ -4,6 +4,7 @@ import { ConnectionRequestButton } from './NewConnectionRequestButton.component'
 import { NotificationButton } from './NotificationButton.component'
 import { NewIdea } from './NewIdea.component.tsx'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 interface NavButtonsProps {
     requests: Array<{
@@ -21,12 +22,19 @@ export const NavButtons: React.FC<NavButtonsProps> = ({
 }) => {
     const [NewIdeaModalOpen, setNewIdeaModalOpen] = useState(false)
 
+    const navigate = useNavigate()
     return (
         <div className="hidden md:flex items-center space-x-4 md:space-x-6">
             <Button onClick={() => setNewIdeaModalOpen(true)} className="py-5">
                 <CirclePlus className="mr-2" /> New Idea
             </Button>
-            <Button variant="outline" className="py-5">
+            <Button
+                onClick={() => {
+                    navigate('/view-ideas')
+                }}
+                variant="outline"
+                className="py-5"
+            >
                 View Ideas
             </Button>
             <Button variant="outline" className="py-5">

@@ -36,6 +36,8 @@ interface Idea {
     learningOutcome: string
     recommendedLevel: string
     generalThoughts?: string
+    pdfUrl?: string
+    url?: string
 }
 
 const ideasData: Idea[] = [
@@ -48,7 +50,8 @@ const ideasData: Idea[] = [
         tags: [],
         learningOutcome: 'Improved customer support automation',
         recommendedLevel: 'Intermediate',
-        generalThoughts: 'General Thought',
+        pdfUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        url: 'https://github.com/openconnectousl/openconnect-frontend',
     },
     {
         id: 2,
@@ -91,7 +94,7 @@ export const ProjectsIdeas = () => {
                 <ViewIdea
                     open={viewIdeaModalOpen}
                     onOpenChange={setViewIdeaModalOpen}
-                    idea={selectedIdea} // Pass selected idea to modal
+                    idea={selectedIdea}
                 />
             )}
 
