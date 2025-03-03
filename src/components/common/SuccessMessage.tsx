@@ -1,15 +1,9 @@
 import { SuccessMessageModalProps } from '@/types'
-import {
-    CheckCircle2,
-    Mail,
-    ArrowRight,
-    Key,
-} from 'lucide-react'
+import { CheckCircle2, Mail, ArrowRight, Key } from 'lucide-react'
 import { Dialog, DialogContent } from '../ui/dialog'
 import { Button } from '../ui/button'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-
 
 const SuccessMessage: React.FC<SuccessMessageModalProps> = ({
     title,
@@ -184,10 +178,12 @@ const SuccessMessage: React.FC<SuccessMessageModalProps> = ({
                                 >
                                     <div className="bg-green-50 border-l-4 border-green-400 p-4 mb-4 text-left">
                                         <p className="text-green-700 font-medium">
-                                            Your password has been successfully reset!
+                                            Your password has been successfully
+                                            reset!
                                         </p>
                                         <p className="text-green-600 text-sm mt-2">
-                                            You can now log in to your account using your new password.
+                                            You can now log in to your account
+                                            using your new password.
                                         </p>
                                     </div>
 
@@ -204,37 +200,40 @@ const SuccessMessage: React.FC<SuccessMessageModalProps> = ({
                             )}
 
                             {/* Sign up success case */}
-                            {!isAccountExists && !isPasswordReset && !isPasswordResetComplete && (
-                                <motion.div
-                                    initial={{ y: 10, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    transition={{ delay: 0.5 }}
-                                    className="w-full"
-                                >
-                                    <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4 text-left">
-                                        <p className="text-blue-700 font-medium">
-                                            We've sent a verification link to
-                                            your email address. Please check
-                                            your inbox and click the link to
-                                            activate your account.
-                                        </p>
-                                        <p className="text-blue-600 text-sm mt-2">
-                                            <span className="font-medium">
-                                                Tip:
-                                            </span>{' '}
-                                            If you don't see the email, please
-                                            check your spam or junk folder.
-                                        </p>
-                                    </div>
-
-                                    <Button
-                                        onClick={onClose}
-                                        className="w-full bg-green-600 hover:bg-green-700 text-white"
+                            {!isAccountExists &&
+                                !isPasswordReset &&
+                                !isPasswordResetComplete && (
+                                    <motion.div
+                                        initial={{ y: 10, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        transition={{ delay: 0.5 }}
+                                        className="w-full"
                                     >
-                                        Got it, thanks!
-                                    </Button>
-                                </motion.div>
-                            )}
+                                        <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4 text-left">
+                                            <p className="text-blue-700 font-medium">
+                                                We've sent a verification link
+                                                to your email address. Please
+                                                check your inbox and click the
+                                                link to activate your account.
+                                            </p>
+                                            <p className="text-blue-600 text-sm mt-2">
+                                                <span className="font-medium">
+                                                    Tip:
+                                                </span>{' '}
+                                                If you don't see the email,
+                                                please check your spam or junk
+                                                folder.
+                                            </p>
+                                        </div>
+
+                                        <Button
+                                            onClick={onClose}
+                                            className="w-full bg-green-600 hover:bg-green-700 text-white"
+                                        >
+                                            Got it, thanks!
+                                        </Button>
+                                    </motion.div>
+                                )}
                         </div>
                     </div>
                 </motion.div>

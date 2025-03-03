@@ -207,5 +207,9 @@ export interface SuccessMessageModalProps extends SuccessMessageProps {
     isOpen: boolean
     onClose: () => void
     email?: string
-    type?: 'signup' | 'accountExists' | 'passwordReset' | 'passwordResetComplete'
+    type?:
+        | 'signup'
+        | 'accountExists'
+        | 'passwordReset'
+        | 'passwordResetComplete'
 }

@@ -11,7 +11,6 @@ export const ForgotPasswordFormSchema = z.object({
     email: z.string().email('Invalid email').min(1, 'Required'),
 })
 
-
 export const SignUpFormSchema = z.object({
     username: z.string().min(1, 'Required').max(100, 'Maximum 50 characters'),
     email: z.string().email('Invalid email').min(1, 'Required'),

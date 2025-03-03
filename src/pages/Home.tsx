@@ -125,9 +125,12 @@ const Home: React.FC = () => {
                         Join thousands of professionals who are already
                         connecting, collaborating, and growing together.
                     </p>
-                    <Button className="text-lg py-6 px-10 bg-white text-blue-700 hover:bg-blue-50"  onClick={() => {
-                                        navigate('/auth/signup')
-                                    }}>
+                    <Button
+                        className="text-lg py-6 px-10 bg-white text-blue-700 hover:bg-blue-50"
+                        onClick={() => {
+                            navigate('/auth/signup')
+                        }}
+                    >
                         Sign Up Now <ChevronRight className="ml-2 h-5 w-5" />
                     </Button>
                 </div>
