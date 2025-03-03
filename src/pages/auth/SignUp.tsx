@@ -64,15 +64,26 @@ const SignUp: React.FC = () => {
                             <div className="grid gap-6">
                                 <p className="text-left text-zinc-500">
                                     Already have an account?
-                                    <a href="#" className="text-blue-600 hover:underline ml-1">Sign In</a>
+                                    <a
+                                        href="#"
+                                        className="text-blue-600 hover:underline ml-1"
+                                    >
+                                        Sign In
+                                    </a>
                                 </p>
-                                <Button type="button" variant="outline" className="w-full">
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    className="w-full"
+                                >
                                     <FcGoogle className="mr-2" />
                                     Continue with Google
                                 </Button>
                                 <div className="flex items-center">
                                     <div className="flex-grow border-t border-gray-300"></div>
-                                    <span className="flex-shrink mx-4 text-gray-400">or</span>
+                                    <span className="flex-shrink mx-4 text-gray-400">
+                                        or
+                                    </span>
                                     <div className="flex-grow border-t border-gray-300"></div>
                                 </div>
                                 <FormField
@@ -110,10 +121,25 @@ const SignUp: React.FC = () => {
                                     )}
                                 />
                                 <div className="text-sm">
-                                    <span className="text-zinc-400">By signing up, you agree to our</span>
-                                    <a href="#" className="text-blue-600 hover:underline"> Terms of Service</a>
+                                    <span className="text-zinc-400">
+                                        By signing up, you agree to our
+                                    </span>
+                                    <a
+                                        href="#"
+                                        className="text-blue-600 hover:underline"
+                                    >
+                                        {' '}
+                                        Terms of Service
+                                    </a>
                                     <span className="text-zinc-400"> and</span>
-                                    <a href="#" className="text-blue-600 hover:underline"> Privacy Policy</a>.
+                                    <a
+                                        href="#"
+                                        className="text-blue-600 hover:underline"
+                                    >
+                                        {' '}
+                                        Privacy Policy
+                                    </a>
+                                    .
                                 </div>
                             </div>
 

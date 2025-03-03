@@ -319,9 +319,9 @@ export default function MySubmissions() {
                                                     idea.status === 'Approved'
                                                         ? 'default2'
                                                         : idea.status ===
-                                                          'Rejected'
-                                                        ? 'destructive2'
-                                                        : 'secondary'
+                                                            'Rejected'
+                                                          ? 'destructive2'
+                                                          : 'secondary'
                                                 }
                                             >
                                                 {idea.status}

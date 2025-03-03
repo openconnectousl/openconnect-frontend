@@ -7,7 +7,7 @@ import { RequestPanel } from '@/components/RequestPanel'
 import { useApp } from '@/context/AppContext'
 
 export const MainLayout = () => {
-    const { requests, isRequestPanelOpen, setIsRequestPanelOpen } = useApp()    
+    const { requests, isRequestPanelOpen, setIsRequestPanelOpen } = useApp()
 
     return (
         <div className="flex flex-col min-h-screen bg-gray-50">
@@ -16,13 +16,11 @@ export const MainLayout = () => {
                 isRequestPanelOpen={isRequestPanelOpen}
                 setIsRequestPanelOpen={setIsRequestPanelOpen}
             />
-            <main
-                    className="flex-1 pt-16"
-                >
+            <main className="flex-1 pt-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <Outlet />
-                    </div>
-                </main>
+                    <Outlet />
+                </div>
+            </main>
             <About />
             <Footer />
             <RequestPanel
