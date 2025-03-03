@@ -119,7 +119,7 @@ export const ViewIdea: React.FC<ViewIdeaProps> = ({
                             idea.tags.map((tag) => (
                                 <Badge
                                     key={tag}
-                                    className="bg-gray-100 text-gray-600"
+                                    className="bg-muted text-gray-600 text-xs hover:bg-slate-100 hover:text-gray-600"
                                 >
                                     {tag}
                                 </Badge>
