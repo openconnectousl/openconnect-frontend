@@ -11,11 +11,13 @@ import CreateEvents from './pages/Dashboard/Features/CreateEvents'
 import ManageUsers from './pages/Dashboard/Features/ManageUsers'
 import ManageProjects from './pages/Dashboard/Features/ManageProjects'
 import { MainLayout } from './components/layout/MainLayout'
+import { MyProfileLayout } from './components/layout/MyProfileLayout'
+import { ViewOtherUsersIdeas } from './components/layout/ViewOtherUsersIdeas'
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <MainLayout />,
+        element: <MyProfileLayout />,
         children: [
             {
                 index: true,
@@ -62,5 +64,9 @@ export const router = createBrowserRouter([
     {
         path: '/auth/callback',
         element: <GoogleCallback />,
+    },
+    {
+        path: '/view-ideas',
+        element: <ViewOtherUsersIdeas />,
     },
 ])
