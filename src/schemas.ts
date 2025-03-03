@@ -7,14 +7,13 @@ export const VerificationFormSchema = z.object({
         .min(26, 'Verification Code must be at least 26 characters'),
 })
 
-export const ForgotPwFormSchema = z.object({
-    userEmail: z
-        .string()
-        .nonempty('Your Email is Required')
-        .min(26, 'Enter your Registerd Email.'),
+export const ForgotPasswordFormSchema = z.object({
+    email: z.string().email('Invalid email').min(1, 'Required'),
 })
 
+
 export const SignUpFormSchema = z.object({
+    username: z.string().min(1, 'Required').max(100, 'Maximum 50 characters'),
     email: z.string().email('Invalid email').min(1, 'Required'),
     password: z
         .string()

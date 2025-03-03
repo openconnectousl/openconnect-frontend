@@ -1,6 +1,4 @@
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
-
 import {
     Form,
     FormControl,
@@ -15,12 +13,18 @@ import { Button } from '@/components/ui/button'
 import { FcGoogle } from 'react-icons/fc'
 import { Input } from '@/components/ui/input'
 import Spinner from '@/components/Spinner/Spinner.component'
-import SignInImage from '@/assets/images/auth/SignIn-UI-image.svg'
+import SignInImage from '@/assets/images/auth/SignInImage.svg'
+import { useSignIn } from '@/hooks/useSignIn.ts'
+import { SignInCredentials } from '@/types'
+import { useGoogleAuth } from '@/hooks/useGoogleOAuth.ts'
 
 const SignIn: React.FC = () => {
-    const [loading, setLoading] = useState(false)
+    const { signIn, isLoading } = useSignIn()
+    const { googleSignIn, isLoading: isGoogleLoading } = useGoogleAuth()
 
-    //validations
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+    }
     const form = useForm({
         resolver: zodResolver(SignInFormSchema),
         defaultValues: {
@@ -29,13 +33,8 @@ const SignIn: React.FC = () => {
         },
     })
 
-    //handle login
-    const onLogin = async (values: { email: string; password: string }) => {
-        try {
-            // Todo: fetch api
-        } catch (error) {
-            console.error(error)
-        }
+    const onLogin = async (credentials: SignInCredentials) => {
+        signIn(credentials)
     }
 
     return (
@@ -61,11 +60,11 @@ const SignIn: React.FC = () => {
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onLogin)}>
                                 {/* form header */}
-                                <div className="grid gap-6">
+                                <div className="grid git gap-6">
                                     <p className="text-left text-zinc-500">
                                         Dont have an account?
                                         <a
-                                            href="#"
+                                            href="/auth/signup"
                                             className="text-blue-600 hover:underline ml-1"
                                         >
                                             Sign Up
@@ -75,9 +74,17 @@ const SignIn: React.FC = () => {
                                         type="button"
                                         variant="outline"
                                         className="w-full"
+                                        onClick={handleGoogleSignIn}
+                                        disabled={isGoogleLoading}
                                     >
-                                        <FcGoogle className="mr-2" />
-                                        Sign in with Google
+                                        {isGoogleLoading ? (
+                                            <Spinner />
+                                        ) : (
+                                            <>
+                                                <FcGoogle className="mr-2" />
+                                                Continue with Google
+                                            </>
+                                        )}
                                     </Button>
                                     <div className="flex items-center">
                                         <div className="flex-grow border-t border-gray-300"></div>
@@ -128,23 +135,26 @@ const SignIn: React.FC = () => {
                                         />
                                     </div>
 
-                                    {/* terms */}
                                     <div className="text-sm">
                                         <a
-                                            href="#"
+                                            href="/auth/forgot-password"
                                             className="font-medium text-blue-600 hover:underline ml-1 "
                                         >
                                             Forgot Password
                                         </a>
                                     </div>
 
-                                    {/* btn sign in */}
                                     <div className="mt-2.5">
                                         <Button
                                             type="submit"
                                             className="w-full rounded-md bg-blue-600 hover:bg-blue-700"
+                                            disabled={isLoading}
                                         >
-                                            {loading ? <Spinner /> : 'Sign in'}
+                                            {isLoading ? (
+                                                <Spinner />
+                                            ) : (
+                                                'Sign in'
+                                            )}
                                         </Button>
                                     </div>
                                 </div>
