@@ -1,10 +1,54 @@
 export interface UserProfile {
-    id: number
+    id: string
     name: string
     title: string
     faculty: string
     program: string
     image: string
+}
+
+export interface User {
+    id: string
+    username: string
+    firstname?: string
+    lastname?: string
+    email: string
+    avatar?: string
+    title?: string
+    bio?: string
+    faculty?: string
+    program?: string
+    degree?: string
+    uni?: string
+    mobile?: string
+    linkedin?: string
+    github?: string
+    fb?: string
+    skills: string[]
+    hasCompletedProfile: boolean
+    isAdmin?: boolean
+    createdAt: string
+    updatedAt: string
+}
+
+export interface ProfileResponse {
+    profile: User
+    error?: string
+}
+export interface ProfileOnboardingData {
+    firstname?:string
+    lastname?:string
+    title: string
+    faculty: string
+    program: string
+    degree: string
+    uni: string
+    mobile?: string
+    bio?: string
+    skills: string[]
+    linkedin?: string
+    github?: string
+    fb?: string
 }
 
 export interface ProfessionalNetworkGridProps {
@@ -52,16 +96,6 @@ export interface SignUpRequest {
     email: string
     password: string
 }
-
-export interface User {
-    id: string
-    name: string
-    email: string
-    activated: boolean
-    created_at: string
-    version: number
-}
-
 export interface ApiResponse<T> {
     user: T
     error?: ApiError
@@ -129,6 +163,7 @@ export interface AuthenticationToken {
 
 export interface SignInResponse {
     authentication_token: AuthenticationToken
+    user: User
 }
 
 export interface UseSignInReturn {

@@ -9,6 +9,8 @@ import {
     ForgotPasswordResponse,
     ResetPasswordRequest,
     ResetPasswordResponse,
+    User,
+    ProfileResponse,
 } from '../types'
 
 export const authApi = {
@@ -130,4 +132,73 @@ export const authApi = {
             throw { message: 'An unexpected error occurred' }
         }
     },
+
+    getCurrentUser: async (): Promise<User> => {
+        try {
+            const response = await axiosInstance.get<ProfileResponse>('/profile')
+
+            if (response.data && response.data.error) {
+                throw {
+                    error: response.data.error,
+                    status: response.status,
+                    isResponseError: true,
+                }
+
+            }
+            // Backend returns data in an envelope with "profile" key
+            return response.data.profile
+        } catch (error: any) {
+            if (error.isResponseError) {
+                throw error
+            }
+
+            if (error.response?.data) {
+                throw error.response.data
+            }
+
+            throw { message: 'Failed to fetch current user profile' }
+
+        }
+    }
 }
+
+export const profileApi = {
+    getCurrentProfile: async (): Promise<User> => {
+        const response = await axiosInstance.get<ProfileResponse>('/profile')
+        return response.data.profile
+
+    },
+    
+    updateProfile: async (data: Partial<User>): Promise<User> => {
+        const response = await axiosInstance.put<ProfileResponse>('/profile/new', data)
+        return response.data.profile
+    }
+
+    // uploadProfileImage: async (file: File): Promise<{url: string}> => {
+    //     const formData = new FormData()
+    //     formData.append('avatar', file)
+    //     const response = await axiosInstance.post('/user/profile/avatar', formData)
+    //     return response.data
+    // },
+
+    // updateSkills: async (skills: strings[]): Promise<User> => {
+    //     const response = await axiosInstance.put('/user/profile/skills', {skills})
+    //     return response.data
+    // },
+
+    // getProfileByUsername: async (username: string): Promise<User> => {
+    //     const response = await axiosInstance.get<User>(`/users/profile/${username}`)
+    //     return response.data
+    // }
+
+    // searchProfiles: async (query: string, filters?: Record<string, any>): Promise<User[]> => {
+    //     const response = await axiosInstance.get<User[]>('/user/profiles/search', {
+    //         params: {
+    //             query,
+    //             ...filters
+    //         }
+    //     })
+    //     return response.data
+    // }
+}
+
