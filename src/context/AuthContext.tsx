@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         
         const userData = await authApi.getCurrentUser();
         setUser(userData);
-        setHasCompletedOnboarding(!!userData.hasCompletedProfile);
+        setHasCompletedOnboarding(!!userData.has_completed_profile);
       } catch (error) {
         console.error(error);
         localStorage.removeItem('token');
@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const updatedUser = await profileApi.updateProfile(data)
       setUser(prevUser => prevUser ? { ...prevUser, ...updatedUser } : updatedUser)
       
-      if (data.hasCompletedProfile) {
+      if (data.has_completed_profile) {
         setHasCompletedOnboarding(true)
       }
       
@@ -97,7 +97,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const response = await authApi.signIn({ email, password })
       localStorage.setItem('token', response.authentication_token.token)
       setUser(response.user)
-      setHasCompletedOnboarding(!!response.user.hasCompletedProfile)
+      setHasCompletedOnboarding(!!response.user.has_completed_profile)
       
       // Let the login component or route guards handle navigation based on hasCompletedOnboarding
       toast.success('Successfully signed in!')

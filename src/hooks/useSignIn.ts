@@ -28,7 +28,7 @@ export const useSignIn = (): UseSignInReturn => {
       setIsSuccess(true)
       
       // Navigate user based on their onboarding status
-      if (!user.hasCompletedProfile) {
+      if (!user.has_completed_profile) {
         navigate('/onboarding')
       } else {
         navigate('/dashboard')

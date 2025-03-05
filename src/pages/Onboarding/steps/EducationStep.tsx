@@ -13,6 +13,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 interface EducationStepProps {
   formData: ProfileOnboardingData
@@ -26,6 +33,7 @@ const educationSchema = z.object({
   uni: z.string().min(1, "University/Institution is required"),
   faculty: z.string().min(1, "Faculty/Department is required"),
   program: z.string().min(1, "Program/Major is required"),
+  year: z.string().min(1, "Year is required"),
 })
 
 export function EducationStep({ formData, updateFormData, nextStep, prevStep }: EducationStepProps) {
@@ -36,6 +44,7 @@ export function EducationStep({ formData, updateFormData, nextStep, prevStep }: 
       uni: formData.uni || '',
       faculty: formData.faculty || '',
       program: formData.program || '',
+      year: formData.year || '',
     }
   })
   
@@ -99,6 +108,35 @@ export function EducationStep({ formData, updateFormData, nextStep, prevStep }: 
                 <FormControl>
                   <Input placeholder="e.g. Computer Science" {...field} />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          <FormField
+            control={form.control}
+            name="year"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Current Year</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your current year" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="1st">1st Year</SelectItem>
+                    <SelectItem value="2nd">2nd Year</SelectItem>
+                    <SelectItem value="3rd">3rd Year</SelectItem>
+                    <SelectItem value="4th">4th Year</SelectItem>
+                    <SelectItem value="5th">5th Year</SelectItem>
+                    <SelectItem value="Graduate">Graduate Student</SelectItem>
+                    <SelectItem value="Postdoc">Postdoctoral Researcher</SelectItem>
+                    <SelectItem value="Faculty">Faculty Member</SelectItem>
+                    <SelectItem value="Other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}

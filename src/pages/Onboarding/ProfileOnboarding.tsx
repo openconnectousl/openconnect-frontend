@@ -2,25 +2,25 @@
 import { useState } from 'react'
 import { useAuth } from '@/context/AuthContext'
 import { useNavigate } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { Check, ArrowLeft, ArrowRight } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { BasicInfoStep } from './steps/BasicInfoStep'
 import { EducationStep } from './steps/EducationStep'
 import { SkillsStep } from './steps/SkillsStep'
 import { SocialMediaStep } from './steps/SocialMediaStep'
 import { ProfileOnboardingData, User } from '@/types'
-import Spinner from '@/components/Spinner/Spinner.component'
 import toast from 'react-hot-toast'
 
 const initialData: ProfileOnboardingData = {
     firstname: '',
-    lastname:'',
+  lastname: '',
+    avatar: undefined,
   title: '',
   faculty: '',
   program: '',
   degree: '',
   uni: '',
+  year: '',
   mobile: '',
   bio: '',
   skills: [],
@@ -47,6 +47,17 @@ export default function ProfileOnboarding() {
     degree: user?.degree || '',
     uni: user?.uni || '',
     skills: user?.skills || [],
+    year: user?.year || '',
+    mobile: user?.mobile || '',
+    bio: user?.bio || '',
+    linkedin: user?.linkedin || '',
+    github: user?.github || '',
+    fb: user?.fb || '',
+    avatar: user?.avatar instanceof File 
+    ? user.avatar 
+    : typeof user?.avatar === 'string' 
+      ? user.avatar 
+      : undefined
   })
   
   const steps = [
@@ -92,6 +103,13 @@ export default function ProfileOnboarding() {
   async function handleComplete() {
     try {
       setIsSubmitting(true)
+      const socialFields = {
+        linkedin: formData.linkedin && formData.linkedin.trim() !== '' ? formData.linkedin : undefined,
+        github: formData.github && formData.github.trim() !== '' ? formData.github : undefined,
+        fb: formData.fb && formData.fb.trim() !== '' ? formData.fb : undefined,
+      };
+    
+      
       
       // Convert formData to User update format
       const userData: Partial<User> = {
@@ -102,13 +120,12 @@ export default function ProfileOnboarding() {
         program: formData.program,
         degree: formData.degree,
         uni: formData.uni,
+        year: formData.year,
         mobile: formData.mobile,
         bio: formData.bio,
         skills: formData.skills,
-        linkedin: formData.linkedin,
-        github: formData.github,
-        fb: formData.fb,
-        hasCompletedProfile: true  // Make sure this is set to true
+        ...socialFields,
+        avatar: formData.avatar
       }
       
       console.log('Submitting onboarding data:', userData);

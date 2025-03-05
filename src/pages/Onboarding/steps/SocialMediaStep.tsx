@@ -24,9 +24,15 @@ interface SocialMediaStepProps {
 }
 
 const socialMediaSchema = z.object({
-  linkedin: z.string().url("Please enter a valid URL").or(z.string().length(0)).optional(),
-  github: z.string().url("Please enter a valid URL").or(z.string().length(0)).optional(),
-  fb: z.string().url("Please enter a valid URL").or(z.string().length(0)).optional(),
+  linkedin: z.string().url("Please enter a valid URL")
+    .nullish() // Allow null or undefined
+    .transform(val => val === '' ? undefined : val), // Transform empty string to undefined
+  github: z.string().url("Please enter a valid URL")
+    .nullish()
+    .transform(val => val === '' ? undefined : val),
+  fb: z.string().url("Please enter a valid URL")
+    .nullish()
+    .transform(val => val === '' ? undefined : val),
 })
 
 export function SocialMediaStep({ 
@@ -39,16 +45,30 @@ export function SocialMediaStep({
   const form = useForm<z.infer<typeof socialMediaSchema>>({
     resolver: zodResolver(socialMediaSchema),
     defaultValues: {
-      linkedin: formData.linkedin || '',
-      github: formData.github || '',
-      fb: formData.fb || '',
+      linkedin: formData.linkedin && formData.linkedin.trim() !== '' ? formData.linkedin : undefined,
+      github: formData.github && formData.github.trim() !== '' ? formData.github : undefined,
+      fb: formData.fb && formData.fb.trim() !== '' ? formData.fb : undefined,
     }
   })
   
-  function handleSubmit(values: z.infer<typeof socialMediaSchema>) {
-    updateFormData(values)
+    function handleSubmit(values: z.infer<typeof socialMediaSchema>) {
+    // Log what we're submitting for debugging
+    console.log("Social media values before processing:", values);
     
-    onSubmit()
+    // Process values to ensure empty strings become undefined
+    const processedValues = {
+      linkedin: values.linkedin && values.linkedin.trim() !== '' ? values.linkedin : undefined,
+      github: values.github && values.github.trim() !== '' ? values.github : undefined,
+      fb: values.fb && values.fb.trim() !== '' ? values.fb : undefined
+    };
+    
+    console.log("Social media values after processing:", processedValues);
+    
+    // Update form data
+    updateFormData(processedValues);
+    
+    // Submit the form
+    onSubmit();
   }
   
   return (

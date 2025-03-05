@@ -13,19 +13,20 @@ export interface User {
     firstname?: string
     lastname?: string
     email: string
-    avatar?: string
+    avatar?: File | string
     title?: string
     bio?: string
     faculty?: string
     program?: string
     degree?: string
+    year?: string
     uni?: string
     mobile?: string
     linkedin?: string
     github?: string
     fb?: string
     skills: string[]
-    hasCompletedProfile: boolean
+    has_completed_profile: boolean
     isAdmin?: boolean
     createdAt: string
     updatedAt: string
@@ -42,6 +43,7 @@ export interface ProfileOnboardingData {
     faculty: string
     program: string
     degree: string
+    year: string
     uni: string
     mobile?: string
     bio?: string
@@ -49,6 +51,7 @@ export interface ProfileOnboardingData {
     linkedin?: string
     github?: string
     fb?: string
+    avatar?: File | string
 }
 
 export interface ProfessionalNetworkGridProps {
