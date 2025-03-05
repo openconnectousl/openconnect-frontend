@@ -17,7 +17,7 @@ import { ViewOtherUsersIdeas } from './components/layout/ViewOtherUsersIdeas'
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <MyProfileLayout />,
+        element: <Home />,
         children: [
             {
                 index: true,
