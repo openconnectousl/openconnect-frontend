@@ -65,7 +65,7 @@ export default function ProfileOnboarding() {
       title: 'Basic Information', 
       component: <BasicInfoStep 
         formData={formData} 
-        updateFormData={(data) => setFormData({...formData, ...data})} 
+        updateFormData={(data) => setFormData(prevData => ({...prevData, ...data}))}
         nextStep={() => setStep(2)} 
       /> 
     },
@@ -73,7 +73,7 @@ export default function ProfileOnboarding() {
       title: 'Education', 
       component: <EducationStep 
         formData={formData} 
-        updateFormData={(data) => setFormData({...formData, ...data})} 
+        updateFormData={(data) => setFormData(prevData => ({...prevData, ...data}))}
         nextStep={() => setStep(3)} 
         prevStep={() => setStep(1)} 
       /> 
@@ -82,8 +82,8 @@ export default function ProfileOnboarding() {
       title: 'Skills & Interests', 
       component: <SkillsStep 
         formData={formData} 
-        updateFormData={(data) => setFormData({...formData, ...data})} 
-        nextStep={() => setStep(4)} 
+        updateFormData={(data) => setFormData(prevData => ({...prevData, ...data}))}
+       nextStep={() => setStep(4)} 
         prevStep={() => setStep(2)} 
       /> 
     },
@@ -91,50 +91,57 @@ export default function ProfileOnboarding() {
       title: 'Social Media', 
       component: <SocialMediaStep 
         formData={formData} 
-        updateFormData={(data) => setFormData({...formData, ...data})} 
+        updateFormData={(data) => setFormData(prevData => ({...prevData, ...data}))}
         prevStep={() => setStep(3)} 
-        onSubmit={handleComplete}
+        onSubmit={(socialMediaValues) => {
+          console.log("Received social media values:", socialMediaValues);
+          handleComplete(socialMediaValues);
+        }}
         isSubmitting={isSubmitting}
       /> 
     },
   ]
   
-    // src/pages/Onboarding/ProfileOnboarding.tsx
-  async function handleComplete() {
+  async function handleComplete(socialMediaValues: Partial<ProfileOnboardingData> = {}) {
     try {
       setIsSubmitting(true)
-      const socialFields = {
-        linkedin: formData.linkedin && formData.linkedin.trim() !== '' ? formData.linkedin : undefined,
-        github: formData.github && formData.github.trim() !== '' ? formData.github : undefined,
-        fb: formData.fb && formData.fb.trim() !== '' ? formData.fb : undefined,
+  
+      console.log("Original form data:", {
+        ...formData,
+        linkedin: formData.linkedin,
+        github: formData.github,
+        fb: formData.fb,
+      });
+  
+      console.log("Social media values from form:", socialMediaValues);
+      
+      const mergedData = {
+        ...formData,
+        ...socialMediaValues
       };
-    
       
-      
-      // Convert formData to User update format
       const userData: Partial<User> = {
-        firstname: formData.firstname,
-        lastname: formData.lastname,
-        title: formData.title,
-        faculty: formData.faculty,
-        program: formData.program,
-        degree: formData.degree,
-        uni: formData.uni,
-        year: formData.year,
-        mobile: formData.mobile,
-        bio: formData.bio,
-        skills: formData.skills,
-        ...socialFields,
-        avatar: formData.avatar
+        firstname: mergedData.firstname,
+        lastname: mergedData.lastname,
+        title: mergedData.title,
+        faculty: mergedData.faculty,
+        program: mergedData.program,
+        degree: mergedData.degree,
+        uni: mergedData.uni,
+        year: mergedData.year,
+        mobile: mergedData.mobile,
+        bio: mergedData.bio,
+        skills: mergedData.skills,
+        linkedin: mergedData.linkedin,
+        github: mergedData.github,
+        fb: mergedData.fb,
+        avatar: mergedData.avatar
       }
       
       console.log('Submitting onboarding data:', userData);
       
       await updateProfile(userData)
       toast.success('Profile setup complete!')
-      
-      // We don't need to manually navigate - the AuthContext's updated
-      // hasCompletedOnboarding state will trigger our route guards
     } catch (error) {
       console.error('Failed to complete onboarding:', error)
       toast.error('Failed to save profile. Please try again.')
@@ -175,8 +182,7 @@ export default function ProfileOnboarding() {
             </div>
           </div>
           
-          {/* Current step */}
-          <div>
+           <div>
             {steps[step-1].component}
           </div>
         </Card>

@@ -48,9 +48,9 @@ export interface ProfileOnboardingData {
     mobile?: string
     bio?: string
     skills: string[]
-    linkedin?: string
-    github?: string
-    fb?: string
+    linkedin: string
+    github: string
+    fb: string
     avatar?: File | string
 }
 

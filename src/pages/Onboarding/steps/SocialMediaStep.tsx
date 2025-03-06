@@ -19,58 +19,47 @@ interface SocialMediaStepProps {
   formData: ProfileOnboardingData
   updateFormData: (data: Partial<ProfileOnboardingData>) => void
   prevStep: () => void
-  onSubmit: () => void
+  onSubmit: (data: Partial<ProfileOnboardingData>) => void
   isSubmitting: boolean
 }
 
 const socialMediaSchema = z.object({
-  linkedin: z.string().url("Please enter a valid URL")
-    .nullish() // Allow null or undefined
-    .transform(val => val === '' ? undefined : val), // Transform empty string to undefined
-  github: z.string().url("Please enter a valid URL")
-    .nullish()
-    .transform(val => val === '' ? undefined : val),
-  fb: z.string().url("Please enter a valid URL")
-    .nullish()
-    .transform(val => val === '' ? undefined : val),
-})
+  linkedin: z.string().url("Please enter a valid URL").optional().nullable(),
+  github: z.string().url("Please enter a valid URL").optional().nullable(),
+  fb: z.string().url("Please enter a valid URL").optional().nullable(),
+});
 
-export function SocialMediaStep({ 
-  formData, 
-  updateFormData, 
+export function SocialMediaStep({
+  formData,
+  updateFormData,
   prevStep,
   onSubmit,
-  isSubmitting 
+  isSubmitting,
 }: SocialMediaStepProps) {
   const form = useForm<z.infer<typeof socialMediaSchema>>({
     resolver: zodResolver(socialMediaSchema),
     defaultValues: {
-      linkedin: formData.linkedin && formData.linkedin.trim() !== '' ? formData.linkedin : undefined,
-      github: formData.github && formData.github.trim() !== '' ? formData.github : undefined,
-      fb: formData.fb && formData.fb.trim() !== '' ? formData.fb : undefined,
-    }
-  })
-  
-    function handleSubmit(values: z.infer<typeof socialMediaSchema>) {
-    // Log what we're submitting for debugging
+      linkedin: formData.linkedin,
+      github: formData.github,
+      fb: formData.fb,
+    },
+  });
+
+  const handleSubmit = (values: z.infer<typeof socialMediaSchema>) => {
     console.log("Social media values before processing:", values);
-    
-    // Process values to ensure empty strings become undefined
+
     const processedValues = {
-      linkedin: values.linkedin && values.linkedin.trim() !== '' ? values.linkedin : undefined,
-      github: values.github && values.github.trim() !== '' ? values.github : undefined,
-      fb: values.fb && values.fb.trim() !== '' ? values.fb : undefined
+      linkedin: values.linkedin?.trim() || "",
+      github: values.github?.trim() || "",
+      fb: values.fb?.trim() || "",
     };
-    
-    console.log("Social media values after processing:", processedValues);
-    
-    // Update form data
+    console.log("Processed social media values:", processedValues);
+
     updateFormData(processedValues);
-    
-    // Submit the form
-    onSubmit();
-  }
-  
+    onSubmit(processedValues);
+  };
+
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
@@ -80,7 +69,7 @@ export function SocialMediaStep({
             Link your social media accounts to enhance your professional network.
             This step is optional but recommended.
           </p>
-          
+
           <FormField
             control={form.control}
             name="linkedin"
@@ -90,13 +79,17 @@ export function SocialMediaStep({
                   <Linkedin className="h-5 w-5" /> LinkedIn Profile
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="https://linkedin.com/in/username" {...field} />
+                  <Input
+                    placeholder="https://linkedin.com/in/username"
+                    {...field}
+                    value={field.value || ""}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="github"
@@ -106,13 +99,17 @@ export function SocialMediaStep({
                   <Github className="h-5 w-5" /> GitHub Profile
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="https://github.com/username" {...field} />
+                  <Input
+                    placeholder="https://github.com/username"
+                    {...field}
+                    value={field.value || ""}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="fb"
@@ -122,20 +119,33 @@ export function SocialMediaStep({
                   <Facebook className="h-5 w-5" /> Facebook Profile
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="https://facebook.com/username" {...field} />
+                  <Input
+                    placeholder="https://facebook.com/username"
+                    {...field}
+                    value={field.value || ""}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
-        
+
         <div className="flex justify-between">
-          <Button type="button" variant="outline" onClick={prevStep} className="flex items-center">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={prevStep}
+            className="flex items-center"
+          >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back
           </Button>
-          <Button type="submit" disabled={isSubmitting} className="flex items-center">
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="flex items-center"
+          >
             {isSubmitting ? (
               <>
                 <Spinner /> Saving...
@@ -149,5 +159,5 @@ export function SocialMediaStep({
         </div>
       </form>
     </Form>
-  )
+  );
 }
