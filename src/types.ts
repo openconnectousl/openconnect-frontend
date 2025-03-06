@@ -14,6 +14,7 @@ export interface User {
     lastname?: string
     email: string
     avatar?: File | string
+    avatarURL?: string
     title?: string
     bio?: string
     faculty?: string
@@ -63,6 +64,10 @@ export interface ProfessionalNetworkGridProps {
     onFacultyChange: (value: string) => void
     onSortChange: (value: string) => void
     filteredUsers: UserProfile[]
+    totalCount?: number
+    currentPage?: number
+    onPageChange?: (page: number) => void
+    limit?: number
 }
 
 export interface RouterContext {
@@ -251,3 +256,35 @@ export interface SuccessMessageModalProps extends SuccessMessageProps {
         | 'passwordReset'
         | 'passwordResetComplete'
 }
+
+export interface Idea {
+    id: string;
+    title: string;
+    description: string;
+    category: string;
+    tags: string[];
+    upvotes: number;
+    downvotes: number;
+    status: string;
+    version: number;
+    createdAt: string;
+    updatedAt: string;
+    submittedBy: string;
+  }
+  export interface UserProfileWithIdeas extends UserProfile {
+    ideas: Idea[];
+    firstname?: string;
+    lastname?: string;
+    bio?: string;
+    avatar?: string;
+    avatarURL?: string;
+    skills: string[];
+    linkedin?: string;
+    github?: string;
+    fb?: string;
+  }
+
+  export interface ProfileWithIdeasResponse {
+    profiles: UserProfileWithIdeas[];
+    count: number;
+  }

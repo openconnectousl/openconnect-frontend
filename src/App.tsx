@@ -1,6 +1,6 @@
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
-import AppRoutes from './router'
+import { Router } from './router'
 import { AppProvider } from './context/AppContext'
 import { Toaster } from './components/common/Toaster.component'
 import { QueryProvider } from './context/QueryProvider'
@@ -14,7 +14,7 @@ export function App() {
                 <LoadingProvider>
                     <AuthProvider>
                         <AppProvider>
-                            <AppRoutes />
+                            <Router/>
                             <Toaster />
                         </AppProvider>
                     </AuthProvider>

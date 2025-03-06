@@ -1,14 +1,16 @@
-import { UserProfile } from '@/types'
-import { ProfileCard } from '../ProfileCard'
+import { ProfileCardWithIdeas } from '@/components/ProfileCardWithIdeas'
+import { UserProfileWithIdeas } from '@/hooks/useProfilesWithIdeas'
 
 interface GridLayoutProps {
-    users: UserProfile[]
+  users: UserProfileWithIdeas[]
 }
 
-export const GridLayout: React.FC<GridLayoutProps> = ({ users }) => (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {users.map((user) => (
-            <ProfileCard key={user.id} user={user} />
-        ))}
+export const GridLayout = ({ users }: GridLayoutProps) => {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {users.map((user) => (
+        <ProfileCardWithIdeas key={user.id} user={user} />
+      ))}
     </div>
-)
+  )
+}

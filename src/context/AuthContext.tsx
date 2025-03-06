@@ -2,7 +2,7 @@ import { useState, useEffect, createContext, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { authApi, profileApi } from '@/api'
 import toast from 'react-hot-toast'
-import { User } from '@/types'
+import {  User } from '@/types'
 import { LoadingScreen } from '@/components/common/LoadingScreen'
 import { useLoading } from './LoadingContext'
 
@@ -39,6 +39,27 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return null;
     }
   };
+
+  useEffect(() => {
+      const checkTokenExpiry = () => {
+          const token = localStorage.getItem('token');
+          const expiry = localStorage.getItem('token_expiry');
+          
+          if (token && expiry) {
+              const expiryDate = new Date(expiry);
+              if (expiryDate < new Date()) {
+                  // Token expired
+                  console.log('Token expired, logging out');
+                  logout();
+              }
+          }
+      };
+      
+      // Check on mount and every 5 minutes
+      checkTokenExpiry();
+      const interval = setInterval(checkTokenExpiry, 5 * 60 * 1000);
+      return () => clearInterval(interval);
+  }, []);
   
   const loadingContext = getLoadingContext();
   
@@ -92,23 +113,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   const login = async (email: string, password: string) => {
-    setIsLoading(true)
-    try {
-      const response = await authApi.signIn({ email, password })
-      localStorage.setItem('token', response.authentication_token.token)
-      setUser(response.user)
-      setHasCompletedOnboarding(!!response.user.has_completed_profile)
-      
-      // Let the login component or route guards handle navigation based on hasCompletedOnboarding
-      toast.success('Successfully signed in!')
-      return response.user
-    } catch (error: any) {
-      console.error('Login error:', error)
-      toast.error(error?.message || 'Login failed')
-      throw error
-    } finally {
-      setIsLoading(false)
-    }
+      setIsLoading(true);
+      try {
+          const response = await authApi.signIn({ email, password });
+          setUser(response.user);
+          setHasCompletedOnboarding(!!response.user.has_completed_profile);
+          
+          // Token is already stored in localStorage by the API function
+          toast.success('Successfully signed in!');
+          return response.user;
+      } catch (error: any) {
+          console.error('Login error:', error);
+          toast.error(error?.message || 'Login failed');
+          throw error;
+      } finally {
+          setIsLoading(false);
+      }
   }
   
   const signup = async (email: string, password: string, username: string) => {
