@@ -5,6 +5,8 @@ export function useProfilesWithIdeas(limit: number = 20, offset: number = 0) {
         const response = await axios.get('/profiles-with-ideas', {
           params: { limit, offset }
         });
+
+        console.log("Profiles", response.data);
         return response.data;
       },
       staleTime: 5 * 60 * 1000, // 5 minutes

@@ -14,7 +14,8 @@ const Community: React.FC = () => {
     const offset = (currentPage - 1) * limit
     
     const { data, isLoading, error } = useProfilesWithIdeas(limit, offset)
-    
+
+    console.log(data)    
     const handleSearchChange = (value: string) => {
         setSearchQuery(value)
     }
