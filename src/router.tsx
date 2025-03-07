@@ -23,7 +23,7 @@ import AdminPanelIdeas from './components/admin layout/AdminPanelIdeas'
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <MainLayout />,
+        element: <AdminLayout />,
         children: [
             {
                 index: true,
