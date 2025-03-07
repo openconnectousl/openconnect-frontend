@@ -46,7 +46,7 @@ export const NetworkHeader: React.FC<ProfessionalNetworkHeaderProps> = ({
                         </div>
 
                         {/* Desktop search box */}
-                        <div className="hidden md:block">
+                        <div className="hidden md:block md:mr-16">
                             <SearchBox
                                 value={searchQuery}
                                 onChange={onSearchChange}
