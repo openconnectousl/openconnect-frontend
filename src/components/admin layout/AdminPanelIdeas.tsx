@@ -76,6 +76,8 @@ const ideasData: Idea[] = [
         recommendedLevel: 'Intermediate',
         date: 'Feb 15, 2025',
         status: 'Approved',
+        pdfUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        url: 'https://github.com/openconnectousl/openconnect-frontend',
     },
     {
         id: 2,
@@ -88,6 +90,8 @@ const ideasData: Idea[] = [
         recommendedLevel: 'Beginner',
         date: 'Feb 20, 2025',
         status: 'Approved',
+        pdfUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        url: 'https://github.com/openconnectousl/openconnect-frontend',
     },
     {
         id: 3,
@@ -148,6 +152,8 @@ const ideasData: Idea[] = [
         recommendedLevel: 'Advanced',
         date: 'March 1, 2025',
         status: 'Pending',
+        pdfUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        url: 'https://github.com/openconnectousl/openconnect-frontend',
     },
     {
         id: 7,
