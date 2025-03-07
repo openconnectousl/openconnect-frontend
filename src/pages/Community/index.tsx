@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useProfilesWithIdeas } from '@/hooks/useProfilesWithIdeas'
 import { ProfessionalNetworkGrid } from '@/components/ProfessionalNetworkGrid'
-import { Spinner } from '@/components/Spinner/Spinner.component'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { AlertCircle } from 'lucide-react'
+import { LoadingScreen } from '@/components/common/LoadingScreen'
 
 const Community: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('')
@@ -12,10 +12,10 @@ const Community: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const limit = 20
     const offset = (currentPage - 1) * limit
-    
+
     const { data, isLoading, error } = useProfilesWithIdeas(limit, offset)
 
-    console.log(data)    
+    console.log(data)
     const handleSearchChange = (value: string) => {
         setSearchQuery(value)
     }
@@ -28,7 +28,7 @@ const Community: React.FC = () => {
     const handleSortChange = (value: string) => {
         setSortBy(value)
     }
-    
+
     // If loading, show spinner
     if (isLoading) {
         return (
@@ -37,7 +37,7 @@ const Community: React.FC = () => {
             </div>
         )
     }
-    
+
     // If error, show error message
     if (error) {
         return (
@@ -52,14 +52,14 @@ const Community: React.FC = () => {
             </div>
         )
     }
-    
+
     const users = data?.profiles || []
     const totalUsers = data?.count || 0
-    
+
     const filteredUsers = users.filter((user) => {
-        const fullName = `${user.firstname || ''} ${user.lastname || ''}`.trim();
-        const userName = user.name || fullName;
-        
+        const fullName = `${user.firstname || ''} ${user.lastname || ''}`.trim()
+        const userName = user.name || fullName
+
         const matchesSearch = userName
             .toLowerCase()
             .includes(searchQuery.toLowerCase())
@@ -72,8 +72,10 @@ const Community: React.FC = () => {
     const sortedAndFilteredUsers = [...filteredUsers].sort((a, b) => {
         switch (sortBy) {
             case 'name':
-                const nameA = a.name || `${a.firstname || ''} ${a.lastname || ''}`.trim()
-                const nameB = b.name || `${b.firstname || ''} ${b.lastname || ''}`.trim()
+                const nameA =
+                    a.name || `${a.firstname || ''} ${a.lastname || ''}`.trim()
+                const nameB =
+                    b.name || `${b.firstname || ''} ${b.lastname || ''}`.trim()
                 return nameA.localeCompare(nameB)
             case 'title':
                 return (a.title || '').localeCompare(b.title || '')

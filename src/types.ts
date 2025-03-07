@@ -8,11 +8,11 @@ export interface UserProfile {
 }
 
 export interface User {
-    id: string
-    username: string
+    id?: string
+    username?: string
     firstname?: string
     lastname?: string
-    email: string
+    email?: string
     avatar?: File | string
     avatarURL?: string
     title?: string
@@ -27,7 +27,7 @@ export interface User {
     github?: string
     fb?: string
     skills: string[]
-    has_completed_profile: boolean
+    has_completed_profile?: boolean
     isAdmin?: boolean
     createdAt: string
     updatedAt: string
@@ -38,8 +38,8 @@ export interface ProfileResponse {
     error?: string
 }
 export interface ProfileOnboardingData {
-    firstname?:string
-    lastname?:string
+    firstname?: string
+    lastname?: string
     title: string
     faculty: string
     program: string
@@ -258,33 +258,33 @@ export interface SuccessMessageModalProps extends SuccessMessageProps {
 }
 
 export interface Idea {
-    id: string;
-    title: string;
-    description: string;
-    category: string;
-    tags: string[];
-    upvotes: number;
-    downvotes: number;
-    status: string;
-    version: number;
-    createdAt: string;
-    updatedAt: string;
-    submittedBy: string;
-  }
-  export interface UserProfileWithIdeas extends UserProfile {
-    ideas: Idea[];
-    firstname?: string;
-    lastname?: string;
-    bio?: string;
-    avatar?: string;
-    avatarURL?: string;
-    skills: string[];
-    linkedin?: string;
-    github?: string;
-    fb?: string;
-  }
+    id: string
+    title: string
+    description: string
+    category: string
+    tags: string[]
+    upvotes: number
+    downvotes: number
+    status: string
+    version: number
+    createdAt: string
+    updatedAt: string
+    submittedBy: string
+}
+export interface UserProfileWithIdeas extends UserProfile {
+    ideas: Idea[]
+    firstname?: string
+    lastname?: string
+    bio?: string
+    avatar?: string
+    avatarURL?: string
+    skills: string[]
+    linkedin?: string
+    github?: string
+    fb?: string
+}
 
-  export interface ProfileWithIdeasResponse {
-    profiles: UserProfileWithIdeas[];
-    count: number;
-  }
+export interface ProfileWithIdeasResponse {
+    profiles: UserProfileWithIdeas[]
+    count: number
+}

@@ -11,6 +11,7 @@ import {
     ResetPasswordResponse,
     User,
     ProfileResponse,
+    ProfileWithIdeasResponse,
 } from '../types'
 
 export const authApi = {
@@ -57,31 +58,37 @@ export const authApi = {
         const response = await axiosInstance.post<SignInResponse>(
             '/auth/tokens/authentication',
             credentials
-        );
-        
+        )
+
         // After getting the token, immediately fetch user data
         if (response.data.authentication_token) {
             // Store token first so the next request can use it
-            localStorage.setItem('token', response.data.authentication_token.token);
-            localStorage.setItem('token_expiry', response.data.authentication_token.expiry);
+            localStorage.setItem(
+                'token',
+                response.data.authentication_token.token
+            )
+            localStorage.setItem(
+                'token_expiry',
+                response.data.authentication_token.expiry
+            )
 
-            
             // Then fetch user profile
             try {
-                const userResponse = await axiosInstance.get<ProfileResponse>('/profile');
+                const userResponse =
+                    await axiosInstance.get<ProfileResponse>('/profile')
                 // Return combined data that matches your interface
                 return {
                     authentication_token: response.data.authentication_token,
-                    user: userResponse.data.profile
-                };
+                    user: userResponse.data.profile,
+                }
             } catch (error) {
                 // If profile fetch fails, remove token and rethrow
-                localStorage.removeItem('token');
-                throw error;
+                localStorage.removeItem('token')
+                throw error
             }
         }
-        
-        return response.data;
+
+        return response.data
     },
 
     googleSignIn: () => {
@@ -158,7 +165,8 @@ export const authApi = {
 
     getCurrentUser: async (): Promise<User> => {
         try {
-            const response = await axiosInstance.get<ProfileResponse>('/profile')
+            const response =
+                await axiosInstance.get<ProfileResponse>('/profile')
 
             if (response.data && response.data.error) {
                 throw {
@@ -166,7 +174,6 @@ export const authApi = {
                     status: response.status,
                     isResponseError: true,
                 }
-
             }
             // Backend returns data in an envelope with "profile" key
             return response.data.profile
@@ -180,21 +187,32 @@ export const authApi = {
             }
 
             throw { message: 'Failed to fetch current user profile' }
-
         }
-    }
+    },
 }
 
 export const profileApi = {
     getCurrentProfile: async (): Promise<User> => {
         const response = await axiosInstance.get<ProfileResponse>('/profile')
         return response.data.profile
-
     },
-    
+
     updateProfile: async (data: Partial<User>): Promise<User> => {
-        const response = await axiosInstance.put<ProfileResponse>('/profile/new', data)
+        const response = await axiosInstance.put<ProfileResponse>(
+            '/profile/new',
+            data
+        )
         return response.data.profile
+    },
+
+    getProfilesWithIdeas: async (limit: number, offset: number = 0): Promise<ProfileWithIdeasResponse> => {
+        const response = await axiosInstance.get<ProfileWithIdeasResponse>(
+            '/profiles-with-ideas',
+            {
+                params: { limit, offset },
+            }
+        )
+        return response.data
     }
 
     // uploadProfileImage: async (file: File): Promise<{url: string}> => {
@@ -224,4 +242,3 @@ export const profileApi = {
     //     return response.data
     // }
 }
-

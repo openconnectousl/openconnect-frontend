@@ -1,14 +1,11 @@
-export function useProfilesWithIdeas(limit: number = 20, offset: number = 0) {
-    return useQuery<ProfilesResponse>({
-      queryKey: ['profiles-with-ideas', limit, offset],
-      queryFn: async () => {
-        const response = await axios.get('/profiles-with-ideas', {
-          params: { limit, offset }
-        });
+import { profileApi } from '@/api'
+import { ProfileWithIdeasResponse } from '@/types'
+import { useQuery } from '@tanstack/react-query'
 
-        console.log("Profiles", response.data);
-        return response.data;
-      },
-      staleTime: 5 * 60 * 1000, // 5 minutes
-    });
-  }
+export function useProfilesWithIdeas(limit: number = 20, offset: number = 0) {
+    return useQuery<ProfileWithIdeasResponse>({
+        queryKey: ['profiles-with-ideas', limit, offset],
+        queryFn: () => profileApi.getProfilesWithIdeas(limit, offset),
+        staleTime: 5 * 60 * 1000, // 5 minutes
+    })
+}

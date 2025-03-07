@@ -3,12 +3,24 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { UserProfileWithIdeas } from '@/hooks/useProfilesWithIdeas'
-import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/components/ui/hover-card'
+import {
+    HoverCard,
+    HoverCardTrigger,
+    HoverCardContent,
+} from '@/components/ui/hover-card'
 
-export const ProfileCardWithIdeas = ({ user }: { user: UserProfileWithIdeas }) => {
-    const displayName = user.name || `${user.firstname || ''} ${user.lastname || ''}`.trim() || 'Anonymous User';
-    const avatarUrl = user.avatarURL || user.image || 'https://github.com/shadcn.png';
-    
+export const ProfileCardWithIdeas = ({
+    user,
+}: {
+    user: UserProfileWithIdeas
+}) => {
+    const displayName =
+        user.name ||
+        `${user.firstname || ''} ${user.lastname || ''}`.trim() ||
+        'Anonymous User'
+    const avatarUrl =
+        user.avatarURL || user.image || 'https://github.com/shadcn.png'
+
     return (
         <Card className="hover:shadow-lg transition-shadow">
             <CardHeader className="text-center">
@@ -26,44 +38,72 @@ export const ProfileCardWithIdeas = ({ user }: { user: UserProfileWithIdeas }) =
                     </HoverCardTrigger>
                     <HoverCardContent>
                         <div className="space-y-2">
-                            <h4 className="text-sm font-semibold">{displayName}</h4>
-                            {user.faculty && <p className="text-sm">{user.faculty}</p>}
-                            {user.program && <p className="text-sm text-muted-foreground">{user.program}</p>}
-                            {user.bio && <p className="text-xs text-muted-foreground line-clamp-3">{user.bio}</p>}
+                            <h4 className="text-sm font-semibold">
+                                {displayName}
+                            </h4>
+                            {user.faculty && (
+                                <p className="text-sm">{user.faculty}</p>
+                            )}
+                            {user.program && (
+                                <p className="text-sm text-muted-foreground">
+                                    {user.program}
+                                </p>
+                            )}
+                            {user.bio && (
+                                <p className="text-xs text-muted-foreground line-clamp-3">
+                                    {user.bio}
+                                </p>
+                            )}
                         </div>
                     </HoverCardContent>
                 </HoverCard>
                 <h3 className="font-semibold mt-2">{displayName}</h3>
-                {user.title && <p className="text-sm text-muted-foreground">{user.title}</p>}
+                {user.title && (
+                    <p className="text-sm text-muted-foreground">
+                        {user.title}
+                    </p>
+                )}
             </CardHeader>
             <CardContent>
                 <div className="space-y-1 text-sm text-center">
                     {user.faculty && <p>{user.faculty}</p>}
-                    {user.program && <p className="text-muted-foreground">{user.program}</p>}
-                    
+                    {user.program && (
+                        <p className="text-muted-foreground">{user.program}</p>
+                    )}
+
                     {user.skills && user.skills.length > 0 && (
                         <div className="pt-3">
-                            <p className="font-semibold text-xs mb-2">Skills:</p>
+                            <p className="font-semibold text-xs mb-2">
+                                Skills:
+                            </p>
                             <div className="flex flex-wrap justify-center gap-1">
                                 {user.skills.slice(0, 3).map((skill, i) => (
-                                    <Badge key={i} variant="outline" className="text-xs">
+                                    <Badge
+                                        key={i}
+                                        variant="outline"
+                                        className="text-xs"
+                                    >
                                         {skill}
                                     </Badge>
                                 ))}
                                 {user.skills.length > 3 && (
-                                    <Badge variant="outline" className="text-xs">
+                                    <Badge
+                                        variant="outline"
+                                        className="text-xs"
+                                    >
                                         +{user.skills.length - 3}
                                     </Badge>
                                 )}
                             </div>
                         </div>
                     )}
-                    
+
                     {user.ideas && user.ideas.length > 0 && (
                         <div className="pt-3">
                             <p className="font-semibold text-xs mb-2">Ideas:</p>
                             <p className="text-xs text-muted-foreground">
-                                {user.ideas.length} idea{user.ideas.length !== 1 && 's'} submitted
+                                {user.ideas.length} idea
+                                {user.ideas.length !== 1 && 's'} submitted
                             </p>
                         </div>
                     )}

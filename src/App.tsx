@@ -10,16 +10,16 @@ import { LoadingProvider } from './context/LoadingContext'
 export function App() {
     return (
         <QueryProvider>
-            <BrowserRouter>
-                <LoadingProvider>
+            <LoadingProvider>
+                <BrowserRouter>
                     <AuthProvider>
                         <AppProvider>
-                            <Router/>
+                            <Router />
                             <Toaster />
                         </AppProvider>
                     </AuthProvider>
-                </LoadingProvider>
-            </BrowserRouter>
+                </BrowserRouter>
+            </LoadingProvider>
         </QueryProvider>
     )
 }

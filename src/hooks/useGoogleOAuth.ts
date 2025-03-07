@@ -12,8 +12,8 @@ export const useGoogleAuth = (): UseGoogleAuthReturn => {
 
     const googleSignIn = () => {
         setIsLoading(true)
-        startLoading("Connecting to Google...")
-        
+        startLoading('Connecting to Google...')
+
         try {
             authApi.googleSignIn()
             // No need to stopLoading here as page will redirect

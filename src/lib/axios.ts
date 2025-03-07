@@ -18,7 +18,6 @@ axiosInstance.interceptors.request.use(
             console.log('Added auth token to request: Bearer [token]')
         } else {
             console.log('No auth token available for request')
-
         }
 
         return config
