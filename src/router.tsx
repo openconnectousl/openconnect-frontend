@@ -13,19 +13,37 @@ import ManageProjects from './pages/Dashboard/Features/ManageProjects'
 import { MainLayout } from './components/layout/MainLayout'
 import { MyProfileLayout } from './components/layout/MyProfileLayout'
 import { ViewOtherUsersIdeas } from './components/layout/ViewOtherUsersIdeas'
+import MySubmissions from './components/layout/MySubmissions'
+import AdminLayout from './components/admin layout/AdminLayout'
+import AdminDashboard from './components/admin layout/AdminDashboard'
+import AdminSetting from './components/admin layout/Admin-setting'
+import AdminUsers from './components/admin layout/Admin-users'
+import AdminPanelIdeas from './components/admin layout/AdminPanelIdeas'
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <Home />,
+        element: <AdminLayout />,
         children: [
             {
                 index: true,
-                element: <Home />,
+                element: <AdminDashboard />,
             },
             {
                 path: 'dashboard',
                 element: <Dashboard />,
+            },
+            {
+                path: 'admin-ideas',
+                element: <AdminPanelIdeas />,
+            },
+            {
+                path: 'admin-users',
+                element: <AdminUsers />,
+            },
+            {
+                path: 'admin-settings',
+                element: <AdminSetting />,
             },
             {
                 path: 'create-events',
