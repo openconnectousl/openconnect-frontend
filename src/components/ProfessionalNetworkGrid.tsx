@@ -15,6 +15,7 @@ export const ProfessionalNetworkGrid: React.FC<
     onSortChange,
     filteredUsers,
 }) => {
+
     return (
         <div className="flex flex-col min-h-[calc(100vh-theme(spacing.16)-theme(spacing.16))]">
             <NetworkHeader
@@ -30,7 +31,7 @@ export const ProfessionalNetworkGrid: React.FC<
 
             <div className="flex-1 overflow-auto py-6">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <GridLayout users={filteredUsers} />
+                    <GridLayout users={users} />
 
                     {filteredUsers.length === 0 && (
                         <div className="text-center py-10">

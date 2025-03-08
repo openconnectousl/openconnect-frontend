@@ -4,16 +4,11 @@ import { ChevronRight, Users, Globe, Lightbulb, Calendar } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import ForHomeImage from '@/assets/images/auth/ForHome.svg'
 import { Card } from '@/components/ui/card'
-import Footer from '@/components/ui/Footer'
-import HeaderHome from '@/components/layout/header/Header-home'
-import AboutHome from '@/components/ui/About-home'
 
 const Home: React.FC = () => {
     const navigate = useNavigate()
     return (
         <>
-                        <HeaderHome />
-
             <div className="flex flex-col min-h-screen">
                 {/* Hero Section */}
                 <section
@@ -158,8 +153,6 @@ const Home: React.FC = () => {
                     </div>
                 </section>
             </div>
-            <AboutHome />
-            <Footer />
         </>
     )
 }

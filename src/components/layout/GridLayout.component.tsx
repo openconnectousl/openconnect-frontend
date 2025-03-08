@@ -1,5 +1,5 @@
 import { ProfileCardWithIdeas } from '@/components/ProfileCardWithIdeas'
-import { UserProfileWithIdeas } from '@/hooks/useProfilesWithIdeas'
+import { UserProfileWithIdeas } from '@/types'
 
 interface GridLayoutProps {
     users: UserProfileWithIdeas[]

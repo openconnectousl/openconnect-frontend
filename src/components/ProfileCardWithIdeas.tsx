@@ -2,12 +2,12 @@ import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { UserProfileWithIdeas } from '@/hooks/useProfilesWithIdeas'
 import {
     HoverCard,
     HoverCardTrigger,
     HoverCardContent,
 } from '@/components/ui/hover-card'
+import { UserProfileWithIdeas } from '@/types'
 
 export const ProfileCardWithIdeas = ({
     user,
@@ -15,11 +15,9 @@ export const ProfileCardWithIdeas = ({
     user: UserProfileWithIdeas
 }) => {
     const displayName =
-        user.name ||
-        `${user.firstname || ''} ${user.lastname || ''}`.trim() ||
-        'Anonymous User'
+        `${user.firstname || ''} ${user.lastname || ''}`.trim()
     const avatarUrl =
-        user.avatarURL || user.image || 'https://github.com/shadcn.png'
+        user.avatarURL
 
     return (
         <Card className="hover:shadow-lg transition-shadow">
