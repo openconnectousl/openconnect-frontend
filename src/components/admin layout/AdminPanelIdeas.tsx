@@ -67,9 +67,9 @@ type ReviewAction = 'Approved' | 'Rejected' | 'Pending'
 const ideasData: Idea[] = [
     {
         id: 1,
-        title: 'AI Chatbot',
+        title: 'AI Chatbot customer support',
         description: 'An AI chatbot for customer support.',
-        author: { name: 'John Doe', image: '/avatars/john.png' },
+        author: { name: 'Pasindu Bandara', image: '/avatars/john.png' },
         category: 'Technology',
         tags: ['AI', 'Chatbot'],
         learningOutcome: 'Enhancing customer support automation',
@@ -83,7 +83,7 @@ const ideasData: Idea[] = [
         id: 2,
         title: 'Dark Mode Feature',
         description: 'Adding dark mode to the platform.',
-        author: { name: 'Jane Smith', image: '/avatars/jane.png' },
+        author: { name: 'Mayura Bandara', image: '/avatars/jane.png' },
         category: 'UI/UX',
         tags: ['Dark Mode', 'User Experience'],
         learningOutcome: 'Improving user experience',
@@ -98,7 +98,7 @@ const ideasData: Idea[] = [
         title: 'Blockchain Voting System',
         description:
             'A secure voting system using blockchain to prevent fraud and ensure transparency.',
-        author: { name: 'Alice Brown', image: '/avatars/alice.png' },
+        author: { name: 'Ashan Vimukthi', image: '/avatars/alice.png' },
         category: 'Blockchain',
         tags: [
             'Blockchain',
@@ -118,7 +118,7 @@ const ideasData: Idea[] = [
         title: 'Smart Traffic Management',
         description:
             'A system that utilizes AI to analyze traffic patterns and optimize signal timings.',
-        author: { name: 'Bob Martin', image: '/avatars/bob.png' },
+        author: { name: 'A WITHANARACHCHI', image: '/avatars/bob.png' },
         category: 'AI & Automation',
         tags: ['Traffic', 'AI', 'Automation'],
         learningOutcome: 'Enhancing urban traffic management using AI',
@@ -131,7 +131,7 @@ const ideasData: Idea[] = [
         title: 'E-Learning Mobile App',
         description: `A mobile application designed to provide interactive learning experiences, quizzes, and real-time feedback to students.
                       This app will integrate AI-based personalized learning paths and gamification elements to make learning more engaging.`,
-        author: { name: 'Chris White', image: '/avatars/chris.png' },
+        author: { name: 'P M Bandara', image: '/avatars/chris.png' },
         category: 'Education Technology',
         tags: ['E-Learning', 'AI', 'Mobile App'],
         learningOutcome: 'Understanding adaptive learning technologies',
@@ -145,7 +145,7 @@ const ideasData: Idea[] = [
         description: `The project aims to implement an IoT-based monitoring system for precision farming.
                       It will include real-time soil moisture detection, automated irrigation control, and AI-driven crop health analytics.
                       Farmers can access data via a mobile dashboard to make informed decisions on irrigation and fertilizer usage.`,
-        author: { name: 'Emma Wilson', image: '/avatars/emma.png' },
+        author: { name: 'M B Alahakoon', image: '/avatars/emma.png' },
         category: 'IoT & Agriculture',
         tags: ['IoT', 'Farming', 'Smart Agriculture'],
         learningOutcome: 'Applying IoT for precision farming',
@@ -160,7 +160,7 @@ const ideasData: Idea[] = [
         title: 'Fitness Tracker with AI Coaching',
         description:
             'A fitness tracker app that provides AI-generated workout plans based on user activity and health data.',
-        author: { name: 'David Scott', image: '/avatars/david.png' },
+        author: { name: 'P G P M Bandara', image: '/avatars/david.png' },
         category: 'Health & Fitness',
         tags: ['Fitness', 'AI', 'Wearable'],
         learningOutcome: 'Enhancing personal fitness with AI-driven coaching',
@@ -173,7 +173,7 @@ const ideasData: Idea[] = [
         title: 'E-Waste Management Platform',
         description:
             'An online platform that connects users to e-waste recycling centers and tracks e-waste disposal.',
-        author: { name: 'Sophia Green', image: '/avatars/sophia.png' },
+        author: { name: 'M Bandara', image: '/avatars/sophia.png' },
         category: 'Environment',
         tags: ['Recycling', 'E-Waste', 'Sustainability'],
         learningOutcome: 'Promoting responsible e-waste disposal',
@@ -354,7 +354,7 @@ const AdminPanelIdeas: React.FC = () => {
                                     {idea.category}
                                 </TableCell>
                                 <TableCell className="flex items-center">
-                                    <Avatar className="h-8 w-8 mr-1">
+                                    <Avatar className="h-8 w-8 mr-2">
                                         <AvatarImage
                                             src={idea.author.image}
                                             alt={idea.author.name}
