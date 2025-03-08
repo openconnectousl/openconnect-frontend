@@ -1,10 +1,58 @@
 export interface UserProfile {
-    id: number
+    id: string
     name: string
     title: string
     faculty: string
     program: string
     image: string
+}
+
+export interface User {
+    id?: string
+    username?: string
+    firstname?: string
+    lastname?: string
+    email?: string
+    avatar?: File | string
+    avatarURL?: string
+    title?: string
+    bio?: string
+    faculty?: string
+    program?: string
+    degree?: string
+    year?: string
+    uni?: string
+    mobile?: string
+    linkedin?: string
+    github?: string
+    fb?: string
+    skills: string[]
+    has_completed_profile?: boolean
+    isAdmin?: boolean
+    createdAt: string
+    updatedAt: string
+}
+
+export interface ProfileResponse {
+    profile: User
+    error?: string
+}
+export interface ProfileOnboardingData {
+    firstname?: string
+    lastname?: string
+    title: string
+    faculty: string
+    program: string
+    degree: string
+    year: string
+    uni: string
+    mobile?: string
+    bio?: string
+    skills: string[]
+    linkedin: string
+    github: string
+    fb: string
+    avatar?: File | string
 }
 
 export interface ProfessionalNetworkGridProps {
@@ -16,6 +64,10 @@ export interface ProfessionalNetworkGridProps {
     onFacultyChange: (value: string) => void
     onSortChange: (value: string) => void
     filteredUsers: UserProfile[]
+    totalCount?: number
+    currentPage?: number
+    onPageChange?: (page: number) => void
+    limit?: number
 }
 
 export interface RouterContext {
@@ -52,16 +104,6 @@ export interface SignUpRequest {
     email: string
     password: string
 }
-
-export interface User {
-    id: string
-    name: string
-    email: string
-    activated: boolean
-    created_at: string
-    version: number
-}
-
 export interface ApiResponse<T> {
     user: T
     error?: ApiError
@@ -129,6 +171,7 @@ export interface AuthenticationToken {
 
 export interface SignInResponse {
     authentication_token: AuthenticationToken
+    user: User
 }
 
 export interface UseSignInReturn {
@@ -212,4 +255,36 @@ export interface SuccessMessageModalProps extends SuccessMessageProps {
         | 'accountExists'
         | 'passwordReset'
         | 'passwordResetComplete'
+}
+
+export interface Idea {
+    id: string
+    title: string
+    description: string
+    category: string
+    tags: string[]
+    upvotes: number
+    downvotes: number
+    status: string
+    version: number
+    createdAt: string
+    updatedAt: string
+    submittedBy: string
+}
+export interface UserProfileWithIdeas extends UserProfile {
+    ideas: Idea[]
+    firstname?: string
+    lastname?: string
+    bio?: string
+    avatar?: string
+    avatarURL?: string
+    skills: string[]
+    linkedin?: string
+    github?: string
+    fb?: string
+}
+
+export interface ProfileWithIdeasResponse {
+    profiles: UserProfileWithIdeas[]
+    count: number
 }

@@ -1,18 +1,25 @@
-// src/App.tsx
 import './index.css'
-import { RouterProvider } from 'react-router-dom'
-import { router } from './router'
+import { BrowserRouter } from 'react-router-dom'
+import { Router } from './router'
 import { AppProvider } from './context/AppContext'
 import { Toaster } from './components/common/Toaster.component'
 import { QueryProvider } from './context/QueryProvider'
+import { AuthProvider } from './context/AuthContext'
+import { LoadingProvider } from './context/LoadingContext'
 
 export function App() {
     return (
         <QueryProvider>
-            <AppProvider>
-                <RouterProvider router={router} />
-                <Toaster />
-            </AppProvider>
+            <LoadingProvider>
+                <BrowserRouter>
+                    <AuthProvider>
+                        <AppProvider>
+                            <Router />
+                            <Toaster />
+                        </AppProvider>
+                    </AuthProvider>
+                </BrowserRouter>
+            </LoadingProvider>
         </QueryProvider>
     )
 }
