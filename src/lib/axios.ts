@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { ApiError } from '@/types'
+import { isTokenValid } from './utils'
 
 export const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -11,14 +12,19 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('token')
 
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`
-            console.log('Added auth token to request: Bearer [token]')
-        } else {
-            console.log('No auth token available for request')
+        if (isTokenValid()) {
+            const token = localStorage.getItem('token')
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`
+                console.log('Added auth token to request: Bearer [token]')
+            } else {
+                localStorage.removeItem('token')
+                localStorage.removeItem('token_expiry')
+                console.log('No valid auth token available for request')
+            }
         }
+
 
         return config
     },
@@ -31,14 +37,16 @@ axiosInstance.interceptors.response.use(
         return response
     },
     (error) => {
-        if (error.response && error.response.data === 401) {
+        if (error.response && error.response.status === 401) {
             localStorage.removeItem('token')
+            localStorage.removeItem('token_expiry')
             window.location.href = '/auth/login'
-        }
 
-        if (error.response) {
-            return Promise.reject(error.response.data as ApiError)
-        }
-        return Promise.reject({ message: 'Something went wrong' })
+            if (!window.location.pathname.includes('/auth/')) {
+                window.location.href = '/auth/login'
+              }
+            }
+
+        return Promise.reject(error)
     }
 )

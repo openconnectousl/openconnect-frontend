@@ -10,8 +10,7 @@ export const PublicLayout = () => {
             <main className="flex-grow">
                 <Outlet />
             </main>
-            <About />
-            <Footer />
+           
         </div>
     )
 }

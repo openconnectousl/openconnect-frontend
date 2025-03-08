@@ -15,10 +15,26 @@ export const useActivation = (): UseActivationReturn => {
         mutationFn: authApi.activateUser,
         onSuccess: () => {
             toast.success('Account activated successfully')
-            navigate('/auth/login')
+            setTimeout(() => {
+                navigate('/auth/login')
+            }, 1500)
         },
         onError: (error) => {
-            toast.error(error.message || 'Failed to activate account')
+            // Check for token-specific errors first
+            if (error.error?.token) {
+                const tokenError = Array.isArray(error.error.token)
+                    ? error.error.token[0]
+                    : error.error.token
+                toast.error(`Activation failed: ${tokenError}`)
+            } 
+            // Check for general message
+            else if (error.message) {
+                toast.error(error.message)
+            }
+            // Fallback error
+            else {
+                toast.error('Failed to activate account. Please try again or contact support.')
+            }
         },
     })
 

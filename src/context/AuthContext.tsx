@@ -4,7 +4,6 @@ import { authApi, profileApi } from '@/api'
 import toast from 'react-hot-toast'
 import { User } from '@/types'
 import { LoadingScreen } from '@/components/common/LoadingScreen'
-import { useLoading } from './LoadingContext'
 
 let useLoadingImport: any
 try {
@@ -22,6 +21,7 @@ interface AuthContextType {
     signup: (email: string, password: string, username: string) => Promise<void>
     updateProfile: (data: Partial<User>) => Promise<User>
     hasCompletedOnboarding: boolean
+    setUser?: (usr: User | null) => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
                 const userData = await authApi.getCurrentUser()
                 setUser(userData)
-                setHasCompletedOnboarding(!!userData.has_completed_profile)
+                setHasCompletedOnboarding(!!userData.has_profile_created)
             } catch (error) {
                 console.error(error)
                 localStorage.removeItem('token')
@@ -100,7 +100,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 prevUser ? { ...prevUser, ...updatedUser } : updatedUser
             )
 
-            if (data.has_completed_profile) {
+            if (data.has_profile_created) {
                 setHasCompletedOnboarding(true)
             }
 
@@ -115,21 +115,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     const login = async (email: string, password: string) => {
-        setIsLoading(true)
+
+        const loadingContext = getLoadingContext()
+        loadingContext?.startLoading?.('Signing in...')
         try {
             const response = await authApi.signIn({ email, password })
-            setUser(response.user)
-            setHasCompletedOnboarding(!!response.user.has_completed_profile)
-
-            // Token is already stored in localStorage by the API function
-            toast.success('Successfully signed in!')
-            return response.user
+            setUser(response.user || null)
+            setHasCompletedOnboarding(!!response.user?.has_profile_created)
+           
+            return response.user as User
         } catch (error: any) {
             console.error('Login error:', error)
-            toast.error(error?.message || 'Login failed')
             throw error
         } finally {
-            setIsLoading(false)
+            loadingContext?.stopLoading?.()
         }
     }
 
@@ -167,6 +166,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 signup,
                 updateProfile,
                 hasCompletedOnboarding,
+                setUser,
             }}
         >
             {children}

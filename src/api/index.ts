@@ -17,6 +17,7 @@ import {
 export const authApi = {
     signUp: async (data: SignUpRequest): Promise<SignUpResponse> => {
         try {
+        
             const response = await axiosInstance.post<SignUpResponse>(
                 '/users',
                 data
@@ -45,52 +46,99 @@ export const authApi = {
     },
 
     activateUser: async (token: string): Promise<ActivationResponse> => {
-        const response = await axiosInstance.put<ActivationResponse>(
-            '/users/activated',
-            {
-                token,
+        try {
+            const response = await axiosInstance.put<ActivationResponse>(
+                '/users/activated',
+                {
+                    token,
+                }
+            )
+            
+            if (response.data && ('error' in response.data)) {
+                throw {
+                    error: response.data.error,
+                    status: response.status,
+                    isResponseError: true,
+                }
             }
-        )
-        return response.data
+            
+            return response.data
+        } catch (error: any) {
+            if (error.isResponseError) {
+                throw error
+            }
+    
+            if (error.response?.data) {
+                if ('error' in error.response.data) {
+                    throw {
+                        error: error.response.data.error,
+                        status: error.response.status,
+                        isResponseError: true,
+                    }
+                } else {
+                    throw error.response.data
+                }
+            }
+                    
+    
+            throw { message: 'Failed to activate account' }
+        }
     },
 
     signIn: async (credentials: SignInCredentials): Promise<SignInResponse> => {
-        const response = await axiosInstance.post<SignInResponse>(
-            '/auth/tokens/authentication',
-            credentials
-        )
-
-        // After getting the token, immediately fetch user data
+      try {
+        const response = await axiosInstance.post<{
+          authentication_token: {
+            token: string
+            expiry: string
+          }
+        }>('/auth/tokens/authentication', credentials)
+    
         if (response.data.authentication_token) {
-            // Store token first so the next request can use it
-            localStorage.setItem(
-                'token',
-                response.data.authentication_token.token
-            )
-            localStorage.setItem(
-                'token_expiry',
-                response.data.authentication_token.expiry
-            )
-
-            // Then fetch user profile
-            try {
-                const userResponse =
-                    await axiosInstance.get<ProfileResponse>('/profile')
-                // Return combined data that matches your interface
-                return {
-                    authentication_token: response.data.authentication_token,
-                    user: userResponse.data.profile,
-                }
-            } catch (error) {
-                // If profile fetch fails, remove token and rethrow
-                localStorage.removeItem('token')
-                throw error
+          localStorage.setItem(
+            'token',
+            response.data.authentication_token.token
+          )
+          localStorage.setItem(
+            'token_expiry',
+            response.data.authentication_token.expiry
+          )
+    
+          try {
+            const userResponse = await axiosInstance.get<ProfileResponse>('/profile')
+            
+            return {
+              authentication_token: response.data.authentication_token,
+              user: userResponse.data.profile
             }
+          } catch (userError) {
+            localStorage.removeItem('token')
+            localStorage.removeItem('token_expiry')
+            
+            throw {
+              message: 'Authentication successful but failed to fetch user profile',
+              originalError: userError
+            }
+          }
         }
-
-        return response.data
+    
+        throw new Error('No authentication token returned from server')
+      } catch (error: any) {
+        if (error.response?.status === 401) {
+          throw {
+            message: 'Invalid email or password',
+            type: 'auth_error',
+            status: 401
+          }
+        }
+        
+        if (error.response?.data) {
+          throw error.response.data
+        }
+    
+        throw error.message ? error : { message: 'Failed to sign in' }
+      }
     },
-
     googleSignIn: () => {
         const backendUrl = import.meta.env.VITE_API_URL
         localStorage.removeItem('token')

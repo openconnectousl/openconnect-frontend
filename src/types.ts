@@ -13,8 +13,11 @@ export interface User {
     firstname?: string
     lastname?: string
     email?: string
-    avatar?: File | string
-    avatarURL?: string
+    user_type?: string 
+    activated?: boolean
+    has_profile_created?: boolean
+    avatar?: string | File
+    avatar_url?: string
     title?: string
     bio?: string
     faculty?: string
@@ -27,10 +30,9 @@ export interface User {
     github?: string
     fb?: string
     skills: string[]
-    has_completed_profile?: boolean
-    isAdmin?: boolean
-    createdAt: string
-    updatedAt: string
+    created_at?: string 
+    updated_at?: string
+    version?: number
 }
 
 export interface ProfileResponse {
@@ -104,6 +106,15 @@ export interface SignUpRequest {
     email: string
     password: string
 }
+export interface SignUpResponse {
+    user: User
+    error?: {
+      message?: string
+      email?: string | string[]
+      username?: string | string[]
+      password?: string | string[]
+    }
+}
 export interface ApiResponse<T> {
     user: T
     error?: ApiError
@@ -117,7 +128,6 @@ export interface ValidationError {
 export interface ValidationErrors {
     [key: string]: string[]
 }
-export type SignUpResponse = ApiResponse<User>
 
 export interface ApiError {
     message?: string
@@ -126,8 +136,11 @@ export interface ApiError {
         email?: string | string[]
         username?: string | string[]
         password?: string | string[]
+        token?: string | string[]
         [key: string]: string | string[] | undefined
     }
+    status?: number
+    isReposonseError?: boolean
 }
 export interface SignUpHookResult {
     signUp: (data: SignUpRequest) => void
@@ -149,6 +162,7 @@ export interface UseSignUpReturn {
 
 export interface ActivationResponse {
     user: User
+    error?: ApiError
 }
 
 export interface UseActivationReturn {
@@ -171,7 +185,7 @@ export interface AuthenticationToken {
 
 export interface SignInResponse {
     authentication_token: AuthenticationToken
-    user: User
+    user?: User
 }
 
 export interface UseSignInReturn {
