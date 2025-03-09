@@ -1,28 +1,25 @@
-import { Button } from './components/ui/button'
 import './index.css'
-import Home from './pages/home'
+import { BrowserRouter } from 'react-router-dom'
+import { Router } from './router'
+import { AppProvider } from './context/AppContext'
+import { Toaster } from './components/common/Toaster.component'
+import { QueryProvider } from './context/QueryProvider'
+import { AuthProvider } from './context/AuthContext'
+import { LoadingProvider } from './context/LoadingContext'
 
-
-
-
-
-
-
-
-
-
-
-
-function App() {
-
-  return (
-    <>
-      <div>
-        <Button> Click me </Button>
-      </div>
-      <Home />
-    </>
-  )
+export function App() {
+    return (
+        <QueryProvider>
+            <LoadingProvider>
+                <BrowserRouter>
+                    <AuthProvider>
+                        <AppProvider>
+                            <Router />
+                            <Toaster />
+                        </AppProvider>
+                    </AuthProvider>
+                </BrowserRouter>
+            </LoadingProvider>
+        </QueryProvider>
+    )
 }
-
-export default App
