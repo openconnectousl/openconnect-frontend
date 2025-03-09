@@ -4,15 +4,11 @@ import { ChevronRight, Users, Globe, Lightbulb, Calendar } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import ForHomeImage from '@/assets/images/auth/ForHome.svg'
 import { Card } from '@/components/ui/card'
-import Footer from '@/components/ui/Footer'
-import HeaderHome from '@/components/layout/header/Header-home'
-import AboutHome from '@/components/ui/About-home'
 
 const Home: React.FC = () => {
     const navigate = useNavigate()
     return (
         <>
-            <HeaderHome />
             <div className="flex flex-col min-h-screen">
                 {/* Hero Section */}
                 <section
@@ -41,15 +37,9 @@ const Home: React.FC = () => {
                                     </Button>
                                     <Button
                                         className="text-base py-6 px-8"
-                                        onClick={() => {
-                                            document
-                                                .getElementById('features')
-                                                ?.scrollIntoView({
-                                                    behavior: 'smooth',
-                                                })
-                                        }}
+                                        onClick={() => navigate('/community')}
                                     >
-                                        Learn More
+                                        Browse the Community
                                     </Button>
                                 </div>
                             </div>
@@ -163,8 +153,6 @@ const Home: React.FC = () => {
                     </div>
                 </section>
             </div>
-            <AboutHome />
-            <Footer />
         </>
     )
 }
