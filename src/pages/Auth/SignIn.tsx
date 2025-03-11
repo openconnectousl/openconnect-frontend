@@ -52,7 +52,7 @@ const SignIn: React.FC = () => {
                                 Idea Sharing & Collaboration Platform
                             </h2>
                             <p className="text-zinc-400 text-lg font-semibold leading-7">
-                                Sing in
+                                Sign in
                             </p>
                         </div>
 

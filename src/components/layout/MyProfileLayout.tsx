@@ -43,11 +43,11 @@ export const MyProfileLayout = () => {
 
     const [newAboutMe, setNewAboutMe] = useState(aboutMe)
 
-    const { requests, isRequestPanelOpen, setIsRequestPanelOpen } = useApp()
+    // const { requests, isRequestPanelOpen, setIsRequestPanelOpen } = useApp()
 
     return (
         <div className="bg-gray-50">
-            <Header
+            {/* <Header
                 requests={requests}
                 isRequestPanelOpen={isRequestPanelOpen}
                 setIsRequestPanelOpen={setIsRequestPanelOpen}
@@ -56,7 +56,7 @@ export const MyProfileLayout = () => {
                 requests={requests}
                 isOpen={isRequestPanelOpen}
                 onClose={() => setIsRequestPanelOpen(false)}
-            />
+            /> */}
             <div className="p-6 min-h-screen">
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-xl font-bold mb-2 lg:mb-0">

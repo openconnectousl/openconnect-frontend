@@ -26,7 +26,6 @@ export function SkillsStep({
 
     function onSubmit() {
         updateFormData({ skills: formData.skills })
-        nextStep()
     }
 
     return (
@@ -60,7 +59,11 @@ export function SkillsStep({
                         <ArrowLeft className="mr-2 h-4 w-4" />
                         Back
                     </Button>
-                    <Button type="submit" className="flex items-center">
+                    <Button
+                        type="submit"
+                        onClick={nextStep}
+                        className="flex items-center"
+                    >
                         Continue
                         <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>

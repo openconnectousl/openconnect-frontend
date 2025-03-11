@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Separator } from '@radix-ui/react-dropdown-menu'
+import { Separator } from '@/components/ui/separator'
 import {
     Dialog,
     DialogContent,

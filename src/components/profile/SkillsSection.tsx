@@ -5,6 +5,8 @@ interface SkillsSectionProps {
 }
 
 export const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
+    if (!skills || skills.length === 0) return null
+
     return (
         <Card>
             <CardHeader>

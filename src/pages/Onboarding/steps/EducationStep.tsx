@@ -102,12 +102,40 @@ export function EducationStep({
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Faculty/Department</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="e.g. Faculty of Engineering"
-                                        {...field}
-                                    />
-                                </FormControl>
+                                <Select
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                >
+                                    <FormControl>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Select your Faculty/Department" />
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        <SelectItem value="Faculty of Engineering Technology">
+                                            Faculty of Engineering Technology
+                                        </SelectItem>
+                                        <SelectItem value="Faculty of Education">
+                                            Faculty of Education
+                                        </SelectItem>
+                                        <SelectItem value="Faculty of Health Sciences">
+                                            Faculty of Health Sciences
+                                        </SelectItem>
+                                        <SelectItem value="Faculty of Humanities and Social Sciences">
+                                            Faculty of Humanities and Social
+                                            Sciences
+                                        </SelectItem>
+                                        <SelectItem value="Faculty of Natural Sciences">
+                                            Faculty of Natural Sciences
+                                        </SelectItem>
+                                        <SelectItem value="Faculty of Management Studies">
+                                            Faculty of Management Studies
+                                        </SelectItem>
+                                        <SelectItem value="Other">
+                                            Other
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
                                 <FormMessage />
                             </FormItem>
                         )}
