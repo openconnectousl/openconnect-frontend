@@ -1,6 +1,6 @@
 'use client'
 
-import type React from 'react'
+import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Menu } from 'lucide-react'
@@ -10,121 +10,125 @@ const HeaderHome: React.FC = () => {
     const navigate = useNavigate()
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-16 items-center justify-between px-6">
-                {/* Logo Section */}
-                <div className="flex">
+        <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="mx-auto max-w-7xl px-6">
+                <div className="flex h-20 items-center justify-between">
+                    {/* Logo */}
                     <a
                         href="#"
-                        className="flex flex-col space-y-0.5 pl-0 pr-4 transition-colors hover:opacity-90"
+                        className="flex flex-col space-y-0.5 transition-opacity hover:opacity-90"
                     >
-                        <p className="text-blue-600 text-2xl font-semibold tracking-tight">
+                        <p className="text-2xl font-semibold tracking-tight text-blue-600">
                             OpenConnect
                         </p>
-                        <p className="text-muted-foreground text-xs leading-tight">
+                        <p className="text-xs leading-tight text-muted-foreground">
                             Idea Sharing & Collaboration Platform
                         </p>
                     </a>
-                </div>
 
-                {/* Desktop Navigation */}
-                <div className="hidden md:flex items-center space-x-4 ml-auto">
-                    <div className="space-x-5 pr-2 lg:space-x-8 lg:px-10">
+                    {/* Desktop Nav */}
+                    <nav className="hidden md:flex items-center space-x-8">
                         <a
                             href="#hero-section"
-                            className="text-base font-semibold transition-colors hover:text-primary"
+                            className="font-semibold text-base transition-colors hover:text-primary"
                         >
                             Let's Start
                         </a>
                         <a
                             href="#features"
-                            className="text-base font-semibold transition-colors hover:text-primary"
+                            className="font-semibold text-base transition-colors hover:text-primary"
                         >
                             Features
                         </a>
                         <a
                             href="#about"
-                            className="text-base font-semibold transition-colors hover:text-primary"
+                            className="font-semibold text-base transition-colors hover:text-primary"
                         >
                             About
                         </a>
-                    </div>
-                    <Button
-                        onClick={() => navigate('/auth/login')}
-                        variant="outline"
-                        className="rounded-2xl px-6"
-                    >
-                        Sign In
-                    </Button>
-                    <Button
-                        onClick={() => navigate('/auth/signup')}
-                        className="rounded-2xl px-6"
-                    >
-                        Sign Up
-                    </Button>
-                </div>
+                    </nav>
 
-                {/* Mobile Navigation */}
-                <Sheet>
-                    <SheetTrigger asChild>
+                    {/* Buttons */}
+                    <div className="flex items-center space-x-4">
                         <Button
                             variant="outline"
-                            size="icon"
-                            className="md:hidden rounded-lg bg-transparent"
+                            className=" px-6"
+                            onClick={() => navigate('/auth/login')}
                         >
-                            <Menu className="h-4 w-4" />
-                            <span className="sr-only">Toggle Menu</span>
+                            Sign In
                         </Button>
-                    </SheetTrigger>
-                    <SheetContent side="right" className="w-full sm:w-[400px]">
-                        <div className="flex flex-col space-y-4 mt-6">
-                            {/* Auth Buttons */}
-                            <Button
-                                onClick={() => navigate('/auth/login')}
-                                variant="outline"
-                                className="rounded-2xl px-6 w-full"
-                            >
-                                Sign In
-                            </Button>
-                            <Button
-                                onClick={() => navigate('/auth/signup')}
-                                className="rounded-2xl px-6 w-full"
-                            >
-                                Sign Up
-                            </Button>
+                        <Button
+                            className="px-6"
+                            onClick={() => navigate('/auth/signup')}
+                        >
+                            Sign Up
+                        </Button>
+                    </div>
 
-                            {/* Navigation Links */}
-                            <div className="border-t pt-4">
-                                <ul className="flex flex-col font-medium gap-2">
-                                    <li className="border-b pb-2">
-                                        <a
-                                            href="#hero-section"
-                                            className="flex items-center p-2 hover:bg-accent hover:text-accent-foreground rounded transition-colors"
-                                        >
-                                            Let's Start
-                                        </a>
-                                    </li>
-                                    <li className="border-b pb-2">
-                                        <a
-                                            href="#features"
-                                            className="flex items-center p-2 hover:bg-accent hover:text-accent-foreground rounded transition-colors"
-                                        >
-                                            Features
-                                        </a>
-                                    </li>
-                                    <li className="border-b pb-2">
-                                        <a
-                                            href="#about"
-                                            className="flex items-center p-2 hover:bg-accent hover:text-accent-foreground rounded transition-colors"
-                                        >
-                                            About
-                                        </a>
-                                    </li>
-                                </ul>
+                    {/* Mobile Nav */}
+                    <Sheet>
+                        <SheetTrigger asChild>
+                            <Button
+                                variant="outline"
+                                size="icon"
+                                className="md:hidden rounded-lg bg-transparent"
+                            >
+                                <Menu className="h-5 w-5" />
+                                <span className="sr-only">Toggle Menu</span>
+                            </Button>
+                        </SheetTrigger>
+                        <SheetContent
+                            side="right"
+                            className="w-full max-w-sm p-6"
+                        >
+                            <div className="flex flex-col space-y-6">
+                                {/* Auth Buttons */}
+                                <Button
+                                    variant="outline"
+                                    className="w-full  px-6"
+                                    onClick={() => navigate('/auth/login')}
+                                >
+                                    Sign In
+                                </Button>
+                                <Button
+                                    className="w-full px-6"
+                                    onClick={() => navigate('/auth/signup')}
+                                >
+                                    Sign Up
+                                </Button>
+
+                                {/* Nav Links */}
+                                <nav className="border-t pt-6">
+                                    <ul className="flex flex-col gap-3 font-medium">
+                                        {[
+                                            {
+                                                href: '#hero-section',
+                                                label: "Let's Start",
+                                            },
+                                            {
+                                                href: '#features',
+                                                label: 'Features',
+                                            },
+                                            { href: '#about', label: 'About' },
+                                        ].map(({ href, label }) => (
+                                            <li
+                                                key={href}
+                                                className="border-b pb-2 last:border-0 last:pb-0"
+                                            >
+                                                <a
+                                                    href={href}
+                                                    className="block rounded px-3 py-2 hover:bg-accent hover:text-accent-foreground transition-colors"
+                                                >
+                                                    {label}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </nav>
                             </div>
-                        </div>
-                    </SheetContent>
-                </Sheet>
+                        </SheetContent>
+                    </Sheet>
+                </div>
             </div>
         </header>
     )
