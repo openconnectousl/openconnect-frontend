@@ -3,7 +3,7 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Menu } from 'lucide-react'
+import { ArrowRight, Menu } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 const HeaderHome: React.FC = () => {
@@ -20,9 +20,6 @@ const HeaderHome: React.FC = () => {
                     >
                         <p className="text-2xl font-semibold tracking-tight text-blue-600">
                             OpenConnect
-                        </p>
-                        <p className="text-xs leading-tight text-muted-foreground">
-                            Idea Sharing & Collaboration Platform
                         </p>
                     </a>
 
@@ -48,20 +45,13 @@ const HeaderHome: React.FC = () => {
                         </a>
                     </nav>
 
-                    {/* Buttons */}
-                    <div className="flex items-center space-x-4">
+                    <div className="hidden md:flex  items-center space-x-4">
                         <Button
-                            variant="outline"
-                            className=" px-6"
-                            onClick={() => navigate('/auth/login')}
-                        >
-                            Sign In
-                        </Button>
-                        <Button
-                            className="px-6"
                             onClick={() => navigate('/auth/signup')}
+                            size={'lg'}
                         >
-                            Sign Up
+                            Get Started
+                            <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
                     </div>
 
@@ -77,28 +67,27 @@ const HeaderHome: React.FC = () => {
                                 <span className="sr-only">Toggle Menu</span>
                             </Button>
                         </SheetTrigger>
-                        <SheetContent
-                            side="right"
-                            className="w-full max-w-sm p-6"
-                        >
-                            <div className="flex flex-col space-y-6">
-                                {/* Auth Buttons */}
-                                <Button
-                                    variant="outline"
-                                    className="w-full  px-6"
-                                    onClick={() => navigate('/auth/login')}
-                                >
-                                    Sign In
-                                </Button>
-                                <Button
-                                    className="w-full px-6"
-                                    onClick={() => navigate('/auth/signup')}
-                                >
-                                    Sign Up
-                                </Button>
 
+                        <SheetContent side="bottom" className="w-full p-6 backdrop-blur-sm bg-white/90">
+                            <div className="flex flex-col py-10 space-y-6">
+                                {/* Auth Buttons */}
+                                <div className="flex space-x-4">
+                                    <Button
+                                        variant="outline"
+                                        className="w-full  px-6"
+                                        onClick={() => navigate('/auth/login')}
+                                    >
+                                        Sign In
+                                    </Button>
+                                    <Button
+                                        className="w-full px-6"
+                                        onClick={() => navigate('/auth/signup')}
+                                    >
+                                        Sign Up
+                                    </Button>
+                                </div>
                                 {/* Nav Links */}
-                                <nav className="border-t pt-6">
+                                <nav>
                                     <ul className="flex flex-col gap-3 font-medium">
                                         {[
                                             {
@@ -117,7 +106,7 @@ const HeaderHome: React.FC = () => {
                                             >
                                                 <a
                                                     href={href}
-                                                    className="block rounded px-3 py-2 hover:bg-accent hover:text-accent-foreground transition-colors"
+                                                    className="block rounded px-3 text-right py-2 hover:bg-accent hover:text-accent-foreground transition-colors"
                                                 >
                                                     {label}
                                                 </a>

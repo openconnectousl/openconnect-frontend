@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as SheetPrimitive from '@radix-ui/react-dialog'
-import { XIcon } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
@@ -34,7 +34,7 @@ function SheetOverlay({
         <SheetPrimitive.Overlay
             data-slot="sheet-overlay"
             className={cn(
-                'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/80',
+                'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/30',
                 className
             )}
             {...props}
@@ -69,11 +69,12 @@ function SheetContent({
                 )}
                 {...props}
             >
-                {children}
-                <SheetPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none">
-                    <XIcon className="size-4" />
+                <SheetPrimitive.Close className="absolute  left-1/2 -translate-x-1/2    rounded-xs opacity-70 transition-opacity hover:opacity-100 outline-hidden disabled:pointer-events-none">
+                    <ChevronDown className="size-6" />
                     <span className="sr-only">Close</span>
                 </SheetPrimitive.Close>
+
+                {children}
             </SheetPrimitive.Content>
         </SheetPortal>
     )
