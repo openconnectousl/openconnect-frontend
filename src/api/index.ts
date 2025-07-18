@@ -19,6 +19,7 @@ import {
     isSignInError,
     isSignUpError,
 } from '../types'
+import { dummyProfile } from '@/data/dummyUser'
 
 export const authApi = {
     signUp: async (data: SignUpRequest): Promise<SignUpResponse> => {
@@ -112,8 +113,13 @@ export const authApi = {
 
                 //  fetch the user profile with the new token
                 try {
-                    const userResponse =
-                        await profileApi.getCurrentUserProfile()
+                    let userResponse: User
+
+                    if (import.meta.env.VITE_NODE_ENV === 'development') {
+                        userResponse = dummyProfile.profile
+                    } else {
+                        userResponse = await profileApi.getCurrentUserProfile()
+                    }
 
                     // Return combined data with token and user profile
                     return {

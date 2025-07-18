@@ -4,6 +4,7 @@ import { authApi, profileApi } from '@/api'
 import toast from 'react-hot-toast'
 import { LoadingScreen } from '@/components/common/LoadingScreen.component'
 import { AuthContextType, User } from '@/types'
+import { dummyProfile, dummyUser } from '@/data/dummyUser'
 
 let useLoadingImport: any
 try {
@@ -59,19 +60,43 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 setIsLoading(true)
                 loadingContext?.startLoading?.('Checking authentication...')
 
-                // Your auth check logic here
-                const token = localStorage.getItem('token')
+                const isDev = import.meta.env.VITE_NODE_ENV === 'development'
+                let token = localStorage.getItem('token')
+                const expiry = localStorage.getItem('token_expiry')
+
+                // Development mode dummy injection
+                if (isDev) {
+                    // Inject dummy only if token or expiry is missing
+                    if (!token || !expiry) {
+                        localStorage.setItem('token', 'dummy-token')
+                        localStorage.setItem(
+                            'token_expiry',
+                            new Date(Date.now() + 3600 * 1000).toISOString()
+                        )
+                        token = 'dummy-token'
+                    }
+
+                    // Always return dummy user in dev mode
+                    setUser(dummyProfile.profile)
+                    setHasCompletedOnboarding(true)
+                    console.log('Development dummy user injected')
+                    return
+                }
+
+                // Production: if no token, logout
                 if (!token) {
                     setUser(null)
                     return
                 }
 
+                // Normal user fetch
                 const userData = await profileApi.getCurrentUserProfile()
                 setUser(userData)
                 setHasCompletedOnboarding(!!userData.has_completed_profile)
             } catch (error) {
-                console.error(error)
+                console.error('Error during auth check:', error)
                 localStorage.removeItem('token')
+                localStorage.removeItem('token_expiry')
                 setUser(null)
             } finally {
                 setIsLoading(false)
@@ -126,7 +151,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                     user: response.user,
                     hasCompletedProfile: hasCompleted,
                 })
-
             } else {
                 setUser(null)
             }
