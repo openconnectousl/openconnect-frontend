@@ -4,7 +4,7 @@ import { authApi, profileApi } from '@/api'
 import toast from 'react-hot-toast'
 import { LoadingScreen } from '@/components/common/LoadingScreen.component'
 import { AuthContextType, User } from '@/types'
-import { dummyProfile, dummyUser } from '@/data/dummyUser'
+import { dummyProfile } from '@/data/dummyUser'
 
 let useLoadingImport: any
 try {
