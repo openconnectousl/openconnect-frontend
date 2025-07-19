@@ -3,11 +3,26 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { ArrowRight, Menu } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Menu } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 const HeaderHome: React.FC = () => {
+    const [open, setOpen] = React.useState(false)
+
     const navigate = useNavigate()
+
+    const handleNavClick = (href: string) => {
+        if (href.startsWith('#')) {
+            // Anchor navigation
+            const element = document.querySelector(href)
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' })
+            }
+        } else {
+            navigate(href)
+        }
+        setOpen(false)
+    }
 
     return (
         <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -56,7 +71,7 @@ const HeaderHome: React.FC = () => {
                     </div>
 
                     {/* Mobile Nav */}
-                    <Sheet>
+                    <Sheet open={open} onOpenChange={setOpen}>
                         <SheetTrigger asChild>
                             <Button
                                 variant="outline"
@@ -68,24 +83,32 @@ const HeaderHome: React.FC = () => {
                             </Button>
                         </SheetTrigger>
 
-                        <SheetContent side="bottom" className="w-full p-6 backdrop-blur-sm bg-white/90">
+                        <SheetContent
+                            side="bottom"
+                            className="w-full p-6 backdrop-blur-sm bg-white/90"
+                        >
                             <div className="flex flex-col py-10 space-y-6">
                                 {/* Auth Buttons */}
                                 <div className="flex space-x-4">
                                     <Button
                                         variant="outline"
-                                        className="w-full  px-6"
-                                        onClick={() => navigate('/auth/login')}
+                                        className="w-full px-6"
+                                        onClick={() =>
+                                            handleNavClick('/auth/login')
+                                        }
                                     >
                                         Sign In
                                     </Button>
                                     <Button
                                         className="w-full px-6"
-                                        onClick={() => navigate('/auth/signup')}
+                                        onClick={() =>
+                                            handleNavClick('/auth/signup')
+                                        }
                                     >
                                         Sign Up
                                     </Button>
                                 </div>
+
                                 {/* Nav Links */}
                                 <nav>
                                     <ul className="flex flex-col gap-3 font-medium">
@@ -104,12 +127,15 @@ const HeaderHome: React.FC = () => {
                                                 key={href}
                                                 className="border-b pb-2 last:border-0 last:pb-0"
                                             >
-                                                <a
-                                                    href={href}
-                                                    className="block rounded px-3 text-right py-2 hover:bg-accent hover:text-accent-foreground transition-colors"
+                                                <button
+                                                    onClick={() =>
+                                                        handleNavClick(href)
+                                                    }
+                                                    className="w-full text-left rounded px-3 flex justify-between items-center py-2 hover:bg-accent hover:text-accent-foreground transition-colors"
                                                 >
                                                     {label}
-                                                </a>
+                                                    <ArrowUpRight className="h-4 w-4" />
+                                                </button>
                                             </li>
                                         ))}
                                     </ul>
