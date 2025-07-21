@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAuth } from '@/context/AuthContext'
 import { useApp } from '@/context/AppContext'
-import HeaderHome from './HeaderHome'
+import HeaderHome from './HeaderHome.v2'
 import Header from './Header.component'
 
 const SmartHeader: React.FC = () => {
